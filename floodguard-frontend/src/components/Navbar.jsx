@@ -2,14 +2,16 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Droplets, Activity, ShieldAlert, FileText, Home, ShieldCheck, User, LogOut } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import LanguageSelector, { useLanguage } from './LanguageSelector';
 
 const Navbar = () => {
   const { user, isOfficer, logout } = useAuth();
+  const { t } = useLanguage();
 
   return (
     <nav className="bg-[#0b1329]/90 backdrop-blur-md border-b border-slate-800/80 sticky top-0 z-50 px-4 sm:px-8 py-3.5 flex items-center justify-between shadow-lg">
       {/* Brand Logo */}
-      <NavLink to="/" className="flex items-center gap-3 group">
+      <NavLink to="/" className="flex items-center gap-3 group shrink-0">
         <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center shadow-lg shadow-blue-500/25 group-hover:scale-105 transition-transform duration-200">
           <Droplets className="w-6 h-6 text-white fill-blue-100" />
         </div>
@@ -36,7 +38,7 @@ const Navbar = () => {
             }`
           }
         >
-          <Home className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Home
+          <Home className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> {t('home')}
         </NavLink>
 
         <NavLink
@@ -49,7 +51,7 @@ const Navbar = () => {
             }`
           }
         >
-          <Activity className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Live Dashboard
+          <Activity className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> {t('dashboard')}
         </NavLink>
 
         <NavLink
@@ -62,7 +64,7 @@ const Navbar = () => {
             }`
           }
         >
-          <ShieldAlert className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Risk Predictor
+          <ShieldAlert className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> {t('predictor')}
         </NavLink>
 
         <NavLink
@@ -75,7 +77,7 @@ const Navbar = () => {
             }`
           }
         >
-          <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Report Incident
+          <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> {t('report')}
         </NavLink>
 
         <NavLink
@@ -88,12 +90,14 @@ const Navbar = () => {
             }`
           }
         >
-          <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" /> Officer Portal
+          <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" /> {t('officerPortal')}
         </NavLink>
       </div>
 
-      {/* User / Login Control & Live Pulsing Indicator */}
+      {/* User / Login Control & Language Selector */}
       <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+        <LanguageSelector />
+
         {user ? (
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold text-slate-300 hidden sm:inline-block">
@@ -112,17 +116,9 @@ const Navbar = () => {
             to="/login"
             className="flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-xs sm:text-sm font-extrabold shadow-lg shadow-blue-500/20 transition whitespace-nowrap"
           >
-            <User className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Sign In
+            <User className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> {t('signIn')}
           </NavLink>
         )}
-
-        <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-950/40 border border-red-500/30 text-xs font-bold text-red-400 tracking-wider">
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
-          </span>
-          LIVE
-        </div>
       </div>
     </nav>
   );

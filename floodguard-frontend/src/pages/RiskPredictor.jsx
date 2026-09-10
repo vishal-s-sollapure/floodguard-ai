@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { predictFlood } from '../api/floodApi';
 import RiskGauge from '../components/RiskGauge';
 import RiskBadge from '../components/RiskBadge';
+import ExplainableRiskWidget from '../components/ExplainableRiskWidget';
+import RiskTrendWidget from '../components/RiskTrendWidget';
 import { ShieldAlert, Play, Clock, AlertOctagon, CheckCircle2, Sparkles } from 'lucide-react';
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -278,6 +280,23 @@ const RiskPredictor = () => {
                   {prediction.recommended_action}
                 </p>
               </div>
+
+              {/* Explainable AI Score Breakdown */}
+              <ExplainableRiskWidget
+                breakdown={prediction.xai_breakdown}
+                riskScore={prediction.risk_score}
+                riskLevel={prediction.risk_level}
+                explanation={prediction.explanation}
+                projectedScore={prediction.projected_score_30m}
+              />
+
+              {/* 60-Min Risk Trend & 30-Min Projection */}
+              <RiskTrendWidget
+                trendSeries={prediction.trend_series}
+                currentScore={prediction.risk_score}
+                projectedScore={prediction.projected_score_30m || Math.min(prediction.risk_score + 12, 100)}
+                trendDirection={prediction.trend_direction || 'RISING'}
+              />
             </div>
           ) : (
             <div className="bg-[#111827] p-12 rounded-2xl border border-slate-800 shadow-xl flex flex-col items-center justify-center text-center space-y-4 h-full min-h-[400px]">

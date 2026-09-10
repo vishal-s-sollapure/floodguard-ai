@@ -4,6 +4,8 @@ import RiskBadge from '../components/RiskBadge';
 import MapView from '../components/MapView';
 import AlertTicker from '../components/AlertTicker';
 import GeminiAssistantWidget from '../components/GeminiAssistantWidget';
+import FloodSimulationControl from '../components/FloodSimulationControl';
+import ExplainableRiskWidget from '../components/ExplainableRiskWidget';
 import { getCurrentFlood, getWeather, getAlerts } from '../api/floodApi';
 import { CloudRain, Waves, RefreshCw, MapPin, Clock } from 'lucide-react';
 
@@ -78,6 +80,20 @@ const Dashboard = () => {
           Refresh Live Data
         </button>
       </div>
+
+      {/* Live Simulation Mode for Demo */}
+      <FloodSimulationControl
+        onSimulate={async (preset) => {
+          try {
+            const { predictFlood } = await import('../api/floodApi');
+            const res = await predictFlood(preset);
+            setFloodData(res.data || res);
+            setLastUpdated(new Date().toLocaleTimeString());
+          } catch (e) {
+            console.error("Simulation error:", e);
+          }
+        }}
+      />
 
       {/* Top Row: 3 Stat Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
