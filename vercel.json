@@ -1,0 +1,10 @@
+{
+  "buildCommand": "cd floodguard-frontend && npm install && npm run build",
+  "outputDirectory": "floodguard-frontend/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

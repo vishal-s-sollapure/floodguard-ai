@@ -51,11 +51,31 @@ const neighborhoodData = [
   }
 ];
 
+const sheltersData = [
+  { name: "Koramangala Indoor Stadium Shelter", lat: 12.9360, lng: 77.6210, capacity: "1,200 beds", status: "SAFE / OPEN" },
+  { name: "St. John's Relief Auditorium", lat: 12.9310, lng: 77.6180, capacity: "800 beds", status: "SAFE / OPEN" },
+  { name: "Whitefield Community Relief Center", lat: 12.9650, lng: 77.7420, capacity: "1,500 beds", status: "SAFE / OPEN" },
+  { name: "Hebbal Public High School Grounds", lat: 13.0350, lng: 77.5970, capacity: "600 beds", status: "SAFE / OPEN" }
+];
+
 const MapView = () => {
   const bengaluruCenter = [12.9716, 77.5946];
+  const [showShelters, setShowShelters] = React.useState(true);
 
   return (
     <div className="w-full h-[450px] rounded-2xl overflow-hidden border border-slate-800/80 shadow-2xl relative">
+      {/* Shelter Toggle Overlay */}
+      <div className="absolute top-4 right-4 z-[400] bg-[#111827]/90 backdrop-blur-md p-2 rounded-xl border border-slate-800 text-xs shadow-xl flex items-center gap-2">
+        <button
+          onClick={() => setShowShelters(!showShelters)}
+          className={`px-3 py-1.5 rounded-lg font-bold transition flex items-center gap-1.5 ${
+            showShelters ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-400'
+          }`}
+        >
+          🏥 {showShelters ? 'Shelters Active' : 'Show Emergency Shelters'}
+        </button>
+      </div>
+
       <MapContainer
         center={bengaluruCenter}
         zoom={12}
@@ -67,6 +87,7 @@ const MapView = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
+        {/* Neighborhood Risk Markers */}
         {neighborhoodData.map((item, idx) => (
           <CircleMarker
             key={idx}
@@ -99,6 +120,34 @@ const MapView = () => {
             </Popup>
           </CircleMarker>
         ))}
+
+        {/* Emergency Shelter Markers */}
+        {showShelters && sheltersData.map((shelter, sIdx) => (
+          <CircleMarker
+            key={`shelter-${sIdx}`}
+            center={[shelter.lat, shelter.lng]}
+            radius={10}
+            pathOptions={{
+              fillColor: '#10b981',
+              fillOpacity: 0.9,
+              color: '#ffffff',
+              weight: 2
+            }}
+          >
+            <Popup>
+              <div className="p-1 space-y-1 text-xs text-slate-200">
+                <div className="font-extrabold text-emerald-400 border-b border-slate-700 pb-1 flex items-center gap-1">
+                  🏥 Emergency Evacuation Shelter
+                </div>
+                <p className="font-bold text-white text-sm">{shelter.name}</p>
+                <p className="text-slate-400">Capacity: <strong className="text-white">{shelter.capacity}</strong></p>
+                <span className="inline-block px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-extrabold text-[10px]">
+                  {shelter.status}
+                </span>
+              </div>
+            </Popup>
+          </CircleMarker>
+        ))}
       </MapContainer>
 
       {/* Map Legend Overlay */}
@@ -115,6 +164,9 @@ const MapView = () => {
         </div>
         <div className="flex items-center gap-2 text-slate-300">
           <span className="w-3 h-3 rounded-full bg-emerald-500"></span> Safe / Low Risk
+        </div>
+        <div className="flex items-center gap-2 text-emerald-400 font-semibold border-t border-slate-700/60 pt-1">
+          <span className="w-3 h-3 rounded-full bg-emerald-400 border border-white"></span> Emergency Shelter
         </div>
       </div>
     </div>

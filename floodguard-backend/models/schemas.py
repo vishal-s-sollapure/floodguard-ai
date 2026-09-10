@@ -32,6 +32,8 @@ class IncidentReportCreate(BaseModel):
     location_lat: float = Field(..., description="Latitude coordinate")
     location_lng: float = Field(..., description="Longitude coordinate")
     severity: str = Field(..., description="Severity level: low, medium, high, critical")
+    location_name: Optional[str] = Field(default="Bengaluru", description="Neighborhood / area name")
+    image_base64: Optional[str] = Field(default=None, description="Base64 encoded flood image")
 
 class IncidentReport(BaseModel):
     id: Optional[str] = None
@@ -40,7 +42,41 @@ class IncidentReport(BaseModel):
     location_lat: float
     location_lng: float
     severity: str
+    location_name: Optional[str] = "Bengaluru"
+    status: str = "Pending" # Pending, Verified, Resolved, Dismissed
+    image_base64: Optional[str] = None
+    ai_hazard_analysis: Optional[str] = None
+    verified_by: Optional[str] = None
     timestamp: str = Field(default_factory=lambda: datetime.utcnow().isoformat())
+
+class ReportStatusUpdate(BaseModel):
+    status: str = Field(..., description="Status string: Pending, Verified, Resolved, Dismissed")
+    officer_notes: Optional[str] = Field(default=None)
+
+class UserRegister(BaseModel):
+    email: str
+    password: str
+    full_name: str
+    role: str = Field(default="citizen", description="Role: citizen or officer")
+
+class UserLogin(BaseModel):
+    email: str
+    password: str
+
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+    user: dict
+
+class ImageAnalysisRequest(BaseModel):
+    image_base64: str
+    category: Optional[str] = "Flooded Road"
+
+class ImageAnalysisResponse(BaseModel):
+    detected_depth: str
+    hazard_severity: str
+    submerged_objects: List[str]
+    ai_summary: str
 
 class AlertCreate(BaseModel):
     title: Optional[str] = None

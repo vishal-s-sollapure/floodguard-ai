@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { submitReport } from '../api/floodApi';
+import { submitReport, analyzeReportImage } from '../api/floodApi';
 import { MapPin, Navigation, Zap, Trees, AlertTriangle, Building2, LifeBuoy, Send, CheckCircle } from 'lucide-react';
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -43,6 +43,34 @@ const ReportIncident = () => {
     );
   };
 
+  const [imageBase64, setImageBase64] = useState(null);
+  const [aiAnalysis, setAiAnalysis] = useState(null);
+  const [analyzingImage, setAnalyzingImage] = useState(false);
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onloadend = async () => {
+      const base64Str = reader.result;
+      setImageBase64(base64Str);
+      
+      // Auto analyze image with Gemini AI Vision
+      setAnalyzingImage(true);
+      try {
+        const res = await analyzeReportImage({ image_base64: base64Str, category });
+        setAiAnalysis(res.data || res);
+        toast.success("Gemini AI Vision analysis complete!");
+      } catch (err) {
+        console.error("AI image analysis error:", err);
+      } finally {
+        setAnalyzingImage(false);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!description.trim()) {
@@ -57,11 +85,15 @@ const ReportIncident = () => {
         description,
         location_lat: locationLat,
         location_lng: locationLng,
-        severity
+        severity,
+        image_base64: imageBase64,
+        location_name: "Koramangala 4th Block"
       });
 
       toast.success('Incident report submitted successfully to emergency command!');
       setDescription('');
+      setImageBase64(null);
+      setAiAnalysis(null);
     } catch (err) {
       console.error('Report submission error:', err);
       toast.error('Failed to submit report. Please try again.');
@@ -149,13 +181,47 @@ const ReportIncident = () => {
             Incident Description & Landmarks
           </label>
           <textarea
-            rows={4}
+            rows={3}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Describe the depth of water, specific cross-streets, or stranded vehicles..."
             required
             className="w-full px-4 py-3 rounded-xl bg-[#0b1222] border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 text-sm font-medium"
           />
+        </div>
+
+        {/* Photo Upload & Gemini AI Vision Analysis */}
+        <div className="bg-[#0b1222] p-5 rounded-xl border border-slate-800 space-y-4">
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-300">
+            Flood Photo & AI Hazard Analysis (Optional)
+          </label>
+
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            className="block w-full text-xs text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-600 file:text-white hover:file:bg-blue-500 cursor-pointer"
+          />
+
+          {analyzingImage && (
+            <div className="flex items-center gap-2 text-xs font-bold text-blue-400 animate-pulse">
+              <span className="w-4 h-4 border-2 border-blue-400 border-t-transparent rounded-full animate-spin"></span>
+              Gemini Vision AI is analyzing flood depth and hazards from photo...
+            </div>
+          )}
+
+          {aiAnalysis && (
+            <div className="p-4 rounded-xl bg-blue-950/40 border border-blue-500/30 text-xs space-y-2">
+              <div className="flex items-center justify-between text-blue-400 font-bold border-b border-blue-900/50 pb-2">
+                <span>Gemini AI Hazard Evaluation</span>
+                <span className="px-2 py-0.5 rounded bg-blue-600/30 text-blue-300 font-extrabold">{aiAnalysis.hazard_severity} RISK</span>
+              </div>
+              <p className="text-slate-300 leading-relaxed">{aiAnalysis.ai_summary}</p>
+              <div className="flex items-center gap-4 text-[11px] text-slate-400 pt-1">
+                <span>Depth: <strong className="text-white">{aiAnalysis.detected_depth}</strong></span>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Location Section */}
