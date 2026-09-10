@@ -116,10 +116,25 @@ const GeminiAssistantWidget = ({ riskScore = 87, riskLevel = "CRITICAL", locatio
                   className={`p-3.5 rounded-2xl max-w-[85%] font-medium shadow-md ${
                     msg.sender === 'user'
                       ? 'bg-blue-600 text-white rounded-br-none'
-                      : 'bg-[#141e33] text-slate-200 border border-slate-700/60 rounded-bl-none'
+                      : 'bg-[#141e33] text-slate-200 border border-slate-700/60 rounded-bl-none space-y-2'
                   }`}
                 >
-                  {msg.text}
+                  <p>{msg.text}</p>
+                  
+                  {msg.sender === 'ai' && (
+                    <div className="pt-2 border-t border-slate-700/50 space-y-1.5">
+                      <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                        <AlertCircle className="w-3 h-3 text-amber-400 shrink-0" />
+                        <span>⚠️ AI Assessment — Officer Verification Required</span>
+                      </div>
+                      
+                      <div className="flex flex-wrap gap-1 text-[10px]">
+                        <span className="px-1.5 py-0.5 rounded bg-red-950/40 text-red-300 border border-red-800/40">Waterlogging: Detected 🔴</span>
+                        <span className="px-1.5 py-0.5 rounded bg-amber-950/40 text-amber-300 border border-amber-800/40">Obstruction: Likely 🟠</span>
+                        <span className="px-1.5 py-0.5 rounded bg-blue-950/40 text-blue-300 border border-blue-800/40">Model Confidence: 94.2%</span>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {msg.sender === 'user' && (

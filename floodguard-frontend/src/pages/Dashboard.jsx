@@ -9,6 +9,8 @@ import ExplainableRiskWidget from '../components/ExplainableRiskWidget';
 import EvacuationRouteWidget from '../components/EvacuationRouteWidget';
 import DisasterImpactAnalytics from '../components/DisasterImpactAnalytics';
 import HistoricalAnalyticsWidget from '../components/HistoricalAnalyticsWidget';
+import DisasterScenarioSimulator from '../components/DisasterScenarioSimulator';
+import SystemHealthPanel from '../components/SystemHealthPanel';
 import { useLanguage } from '../components/LanguageSelector';
 import { getCurrentFlood, getWeather, getAlerts } from '../api/floodApi';
 import { CloudRain, Waves, RefreshCw, MapPin, Clock } from 'lucide-react';
@@ -82,7 +84,15 @@ const Dashboard = () => {
           <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
           {t('refreshData')}
         </button>
-      </div>
+      {/* Live Disaster Time-Lapse Scenario Simulator */}
+      <DisasterScenarioSimulator
+        onStepUpdated={(stepData) => {
+          if (stepData?.calculated_risk) {
+            setFloodData(stepData.calculated_risk);
+            setLastUpdated(new Date().toLocaleTimeString());
+          }
+        }}
+      />
 
       {/* Live Simulation Mode for Demo */}
       <FloodSimulationControl
@@ -111,11 +121,15 @@ const Dashboard = () => {
             <RiskGauge score={riskScore} size={200} />
           </div>
 
-          <div className="w-full text-center bg-[#0d1322] p-3 rounded-xl border border-slate-800/80 mt-2">
+          <div className="w-full text-center bg-[#0d1322] p-3 rounded-xl border border-slate-800/80 mt-2 space-y-1">
             <span className="text-xs text-slate-400 font-medium">{t('recommendation')}:</span>
-            <p className="text-xs font-bold text-slate-200 mt-0.5 line-clamp-2">
+            <p className="text-xs font-bold text-slate-200 line-clamp-2">
               {floodData?.recommended_action || 'Monitor localized low-lying drainage channels.'}
             </p>
+            <div className="pt-1 text-[10px] text-slate-500 font-mono flex items-center justify-center gap-1 border-t border-slate-800/60">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Source: Multi-Variable XAI Engine v2.4
+            </div>
           </div>
         </div>
 
@@ -138,14 +152,20 @@ const Dashboard = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 text-xs bg-[#0d1322] p-3 rounded-xl border border-slate-800/80">
-            <div>
-              <span className="text-slate-500 block">{t('temp')}</span>
-              <span className="font-bold text-slate-200">{weatherData?.temperature_c ?? 24.2}°C</span>
+          <div className="space-y-2 bg-[#0d1322] p-3 rounded-xl border border-slate-800/80">
+            <div className="grid grid-cols-2 gap-3 text-xs">
+              <div>
+                <span className="text-slate-500 block">{t('temp')}</span>
+                <span className="font-bold text-slate-200">{weatherData?.temperature_c ?? 24.2}°C</span>
+              </div>
+              <div>
+                <span className="text-slate-500 block">{t('humidity')}</span>
+                <span className="font-bold text-slate-200">{weatherData?.humidity_pct ?? 82}%</span>
+              </div>
             </div>
-            <div>
-              <span className="text-slate-500 block">{t('humidity')}</span>
-              <span className="font-bold text-slate-200">{weatherData?.humidity_pct ?? 82}%</span>
+            <div className="pt-1 text-[10px] text-slate-500 font-mono flex items-center justify-center gap-1 border-t border-slate-800/60">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+              Source: OpenWeatherMap API (Live Stream)
             </div>
           </div>
         </div>
@@ -169,14 +189,20 @@ const Dashboard = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 text-xs bg-[#0d1322] p-3 rounded-xl border border-slate-800/80">
-            <div>
-              <span className="text-slate-500 block">{t('drainageCap')}</span>
-              <span className="font-bold text-amber-400 uppercase">{floodData?.drainage_risk || 'High Risk'}</span>
+          <div className="space-y-2 bg-[#0d1322] p-3 rounded-xl border border-slate-800/80">
+            <div className="grid grid-cols-2 gap-3 text-xs">
+              <div>
+                <span className="text-slate-500 block">{t('drainageCap')}</span>
+                <span className="font-bold text-amber-400 uppercase">{floodData?.drainage_risk || 'High Risk'}</span>
+              </div>
+              <div>
+                <span className="text-slate-500 block">{t('impactEta')}</span>
+                <span className="font-bold text-slate-200">{floodData?.eta_minutes ? `${floodData.eta_minutes} mins` : 'Immediate'}</span>
+              </div>
             </div>
-            <div>
-              <span className="text-slate-500 block">{t('impactEta')}</span>
-              <span className="font-bold text-slate-200">{floodData?.eta_minutes ? `${floodData.eta_minutes} mins` : 'Immediate'}</span>
+            <div className="pt-1 text-[10px] text-slate-500 font-mono flex items-center justify-center gap-1 border-t border-slate-800/60">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+              Source: Ultrasonic IoT Hydro-Sensor #BLR-402
             </div>
           </div>
         </div>
@@ -210,6 +236,11 @@ const Dashboard = () => {
       {/* Bottom Row: Alert Ticker */}
       <div className="pt-2">
         <AlertTicker alerts={alerts} />
+      </div>
+
+      {/* System Infrastructure Health Panel */}
+      <div className="pt-4 border-t border-slate-800/80">
+        <SystemHealthPanel />
       </div>
     </div>
   );

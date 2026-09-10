@@ -100,6 +100,75 @@ const Landing = () => {
             </p>
           </div>
         </div>
+
+        {/* Why FloodGuard AI? Proactive vs Reactive Pipeline */}
+        <div className="pt-16 space-y-8 text-left">
+          <div className="text-center space-y-2 max-w-2xl mx-auto">
+            <span className="px-3 py-1 rounded-full text-xs font-black bg-blue-500/10 text-blue-400 border border-blue-500/30 uppercase tracking-widest">
+              PARADIGM SHIFT
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">Why FloodGuard AI?</h2>
+            <p className="text-slate-400 text-sm sm:text-base">
+              Traditional disaster management reacts after catastrophic damage occurs. FloodGuard AI shifts urban response to automated proactive early warning.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Traditional Reactive Approach */}
+            <div className="p-6 sm:p-8 rounded-2xl bg-red-950/20 border border-red-800/30 space-y-6 relative overflow-hidden">
+              <div className="flex items-center justify-between">
+                <span className="px-3 py-1 rounded-full text-xs font-black bg-red-500/20 text-red-400 border border-red-500/30 uppercase">
+                  TRADITIONAL REACTIVE APPROACH
+                </span>
+                <span className="text-xs font-mono text-red-400 font-bold">⏱️ 3-6 HOUR DELAY</span>
+              </div>
+
+              <div className="space-y-4">
+                {[
+                  { step: '1. Inundation Begins', desc: 'Storm drains overflow; streets flood before authorities are notified.' },
+                  { step: '2. Citizen Helpline Overload', desc: 'Control rooms flood with manual 100/112 phone calls.' },
+                  { step: '3. Delayed Manual Verification', desc: 'Field teams sent to physically inspect flooded locations.' },
+                  { step: '4. Reactive Evacuation', desc: 'Evacuation starts after vehicles and infrastructure are submerged.' }
+                ].map((item, i) => (
+                  <div key={i} className="flex gap-3 text-xs bg-[#0e1422]/80 p-3 rounded-xl border border-red-900/30">
+                    <span className="w-5 h-5 rounded-full bg-red-500/20 text-red-400 font-bold flex items-center justify-center shrink-0">✕</span>
+                    <div>
+                      <h4 className="font-bold text-red-300">{item.step}</h4>
+                      <p className="text-slate-400 mt-0.5">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* FloodGuard Proactive AI Pipeline */}
+            <div className="p-6 sm:p-8 rounded-2xl bg-blue-950/30 border border-blue-500/40 space-y-6 relative overflow-hidden shadow-2xl">
+              <div className="flex items-center justify-between">
+                <span className="px-3 py-1 rounded-full text-xs font-black bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase">
+                  FLOODGUARD PROACTIVE AI PIPELINE
+                </span>
+                <span className="text-xs font-mono text-emerald-400 font-bold">⚡ REAL-TIME AUTOMATION</span>
+              </div>
+
+              <div className="space-y-4">
+                {[
+                  { step: '1. Sense & Predict', desc: 'IoT hydro-sensors + OpenWeather streams feed 6-variable XAI scoring model.' },
+                  { step: '2. 30-Min Early Warning', desc: 'Predictive trend alerts emitted before water levels reach critical thresholds.' },
+                  { step: '3. Gemini Vision & XAI Risk', desc: 'Multimodal AI classifies citizen photos and generates explainable risk factors.' },
+                  { step: '4. Instant Safe Route & Dispatch', desc: 'Dijkstra route engine guides citizens to shelters while dispatching rescue teams.' }
+                ].map((item, i) => (
+                  <div key={i} className="flex gap-3 text-xs bg-[#0b1329] p-3 rounded-xl border border-blue-500/30">
+                    <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center shrink-0">✓</span>
+                    <div>
+                      <h4 className="font-bold text-cyan-300">{item.step}</h4>
+                      <p className="text-slate-300 mt-0.5">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
