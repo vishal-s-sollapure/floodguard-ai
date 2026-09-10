@@ -6,8 +6,10 @@ import ExplainableRiskWidget from '../components/ExplainableRiskWidget';
 import RiskTrendWidget from '../components/RiskTrendWidget';
 import { ShieldAlert, Play, Clock, AlertOctagon, CheckCircle2, Sparkles } from 'lucide-react';
 import toast, { Toaster } from 'react-hot-toast';
+import { useLanguage } from '../components/LanguageSelector';
 
 const RiskPredictor = () => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     rainfall_mm: 72,
     water_level_m: 1.82,
@@ -71,10 +73,10 @@ const RiskPredictor = () => {
           </div>
           <div>
             <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-              AI Flood Risk Assessment Predictor
+              {t('predictHeader')}
             </h1>
             <p className="text-sm text-slate-400 mt-0.5">
-              Enter real-time environmental data to simulate flood probability, impact severity, and ETA.
+              {t('predictSubtitle')}
             </p>
           </div>
         </div>
@@ -86,15 +88,15 @@ const RiskPredictor = () => {
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="flex items-center justify-between border-b border-slate-800 pb-3">
               <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-blue-400" /> Simulation Parameters
+                <Sparkles className="w-5 h-5 text-blue-400" /> {t('simulationParams')}
               </h3>
-              <span className="text-xs text-blue-400 font-semibold">Pre-filled with Demo Telemetry</span>
+              <span className="text-xs text-blue-400 font-semibold">{t('demoTelemetry')}</span>
             </div>
 
             {/* Rainfall */}
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                Rainfall Intensity (mm/hr)
+                {t('rainfallIntensityLabel')}
               </label>
               <input
                 type="number"
@@ -111,7 +113,7 @@ const RiskPredictor = () => {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                  Water Level (m)
+                  {t('waterLevelLabel')}
                 </label>
                 <input
                   type="number"
@@ -126,7 +128,7 @@ const RiskPredictor = () => {
 
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                  Water Rise Rate (m/15m)
+                  {t('riseRateLabel')}
                 </label>
                 <input
                   type="number"
@@ -144,7 +146,7 @@ const RiskPredictor = () => {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                  Historical Floods (count)
+                  {t('historicalFloodsLabel')}
                 </label>
                 <input
                   type="number"
@@ -158,7 +160,7 @@ const RiskPredictor = () => {
 
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                  Drainage Risk
+                  {t('drainageRiskLabel')}
                 </label>
                 <select
                   name="drainage_risk"
@@ -177,7 +179,7 @@ const RiskPredictor = () => {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                  Affected Population
+                  {t('affectedPopLabel')}
                 </label>
                 <input
                   type="number"
@@ -191,7 +193,7 @@ const RiskPredictor = () => {
 
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                  Target Zone / Area
+                  {t('targetZoneLabel')}
                 </label>
                 <input
                   type="text"
@@ -213,11 +215,11 @@ const RiskPredictor = () => {
               {loading ? (
                 <>
                   <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-                  Calculating Risk Model...
+                  {t('calculating')}
                 </>
               ) : (
                 <>
-                  <Play className="w-5 h-5 fill-white" /> Analyze Flood Risk
+                  <Play className="w-5 h-5 fill-white" /> {t('analyzeBtn')}
                 </>
               )}
             </button>
@@ -230,7 +232,7 @@ const RiskPredictor = () => {
             <div className="bg-[#111827] p-6 sm:p-8 rounded-2xl border border-slate-800 shadow-xl space-y-6 animate-fadeIn">
               <div className="flex items-center justify-between border-b border-slate-800 pb-4">
                 <div>
-                  <span className="text-xs uppercase font-bold text-slate-400">Location Evaluated</span>
+                  <span className="text-xs uppercase font-bold text-slate-400">{t('locationEvaluated')}</span>
                   <h3 className="text-xl font-extrabold text-white">{prediction.location}</h3>
                 </div>
                 <RiskBadge risk_level={prediction.risk_level} size="large" />
@@ -248,9 +250,9 @@ const RiskPredictor = () => {
                     <Clock className="w-6 h-6" />
                   </div>
                   <div>
-                    <span className="text-xs text-slate-400 font-medium">Estimated Inundation ETA</span>
+                    <span className="text-xs text-slate-400 font-medium">{t('estimatedEta')}</span>
                     <p className="text-lg font-black text-white">
-                      {prediction.eta_minutes > 0 ? `${prediction.eta_minutes} Minutes` : 'Immediate Threat'}
+                      {prediction.eta_minutes > 0 ? `${prediction.eta_minutes} ${t('minutes')}` : t('immediateThreat')}
                     </p>
                   </div>
                 </div>
@@ -260,7 +262,7 @@ const RiskPredictor = () => {
                     <CheckCircle2 className="w-6 h-6" />
                   </div>
                   <div>
-                    <span className="text-xs text-slate-400 font-medium">Engine Confidence</span>
+                    <span className="text-xs text-slate-400 font-medium">{t('engineConfidence')}</span>
                     <p className="text-lg font-black text-emerald-400">98.4% Accuracy</p>
                   </div>
                 </div>
@@ -274,7 +276,7 @@ const RiskPredictor = () => {
                 'bg-emerald-950/30 border-emerald-500/40 text-emerald-300'
               }`}>
                 <h4 className="font-bold text-sm uppercase tracking-wider mb-1.5 flex items-center gap-2">
-                  <AlertOctagon className="w-4 h-4" /> Recommended Safety Action
+                  <AlertOctagon className="w-4 h-4" /> {t('recSafetyAction')}
                 </h4>
                 <p className="text-sm font-semibold leading-relaxed">
                   {prediction.recommended_action}
@@ -303,9 +305,9 @@ const RiskPredictor = () => {
               <div className="w-16 h-16 rounded-full bg-blue-600/10 text-blue-400 border border-blue-500/20 flex items-center justify-center">
                 <ShieldAlert className="w-8 h-8" />
               </div>
-              <h3 className="text-xl font-bold text-white">Ready for Risk Simulation</h3>
+              <h3 className="text-xl font-bold text-white">{t('readyForSim')}</h3>
               <p className="text-sm text-slate-400 max-w-md">
-                Adjust parameters on the left and click "Analyze Flood Risk" to run the mathematical risk scoring engine.
+                {t('readySimSub')}
               </p>
             </div>
           )}

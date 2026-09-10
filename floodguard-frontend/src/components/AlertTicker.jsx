@@ -1,7 +1,10 @@
 import React from 'react';
 import { AlertOctagon, Megaphone } from 'lucide-react';
+import { useLanguage } from './LanguageSelector';
 
 const AlertTicker = ({ alerts = [] }) => {
+  const { t } = useLanguage();
+
   const defaultAlerts = [
     "⚠️ HIGH RISK WARNING: Koramangala & Bellandur areas experiencing rapid water level rise. Avoid low-lying underpasses.",
     "🚨 EMERGENCY ADVISORY: BBMP deployed response teams near Outer Ring Road. Standby for relocation notices if water level exceeds 3.5m.",
@@ -15,7 +18,7 @@ const AlertTicker = ({ alerts = [] }) => {
       {/* Ticker Badge */}
       <div className="bg-red-600 text-white px-4 py-2.5 flex items-center gap-2 font-black text-xs uppercase tracking-wider shrink-0 shadow-md">
         <Megaphone className="w-4 h-4 animate-bounce" />
-        LIVE ALERTS
+        {t('liveAlerts')}
       </div>
 
       {/* Scrolling Text Container */}

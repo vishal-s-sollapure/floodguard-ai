@@ -2,17 +2,20 @@ import React, { useState } from 'react';
 import { submitReport, analyzeReportImage } from '../api/floodApi';
 import { MapPin, Navigation, Zap, Trees, AlertTriangle, Building2, LifeBuoy, Send, CheckCircle } from 'lucide-react';
 import toast, { Toaster } from 'react-hot-toast';
-
-const categories = [
-  { id: 'Flooded Road', label: 'Flooded Road', icon: Navigation, desc: 'Road impassable or waterlogged' },
-  { id: 'Blocked Drain', label: 'Blocked Drain', icon: AlertTriangle, desc: 'Overflowing storm drain or culvert' },
-  { id: 'Fallen Tree', label: 'Fallen Tree', icon: Trees, desc: 'Tree blocking water flow or path' },
-  { id: 'Electrical Danger', label: 'Electrical Danger', icon: Zap, desc: 'Exposed wire or submerged transformer' },
-  { id: 'Infrastructure Damage', label: 'Infrastructure Damage', icon: Building2, desc: 'Bridge or wall structural risk' },
-  { id: 'Person Needs Help', label: 'Person Needs Help', icon: LifeBuoy, desc: 'Stranded resident needing assistance' }
-];
+import { useLanguage } from '../components/LanguageSelector';
 
 const ReportIncident = () => {
+  const { t } = useLanguage();
+
+  const categories = [
+    { id: 'Flooded Road', label: t('floodedRoad'), icon: Navigation, desc: t('floodedRoadDesc') },
+    { id: 'Blocked Drain', label: t('blockedDrain'), icon: AlertTriangle, desc: t('blockedDrainDesc') },
+    { id: 'Fallen Tree', label: t('fallenTree'), icon: Trees, desc: t('fallenTreeDesc') },
+    { id: 'Electrical Danger', label: t('electricalDanger'), icon: Zap, desc: t('electricalDangerDesc') },
+    { id: 'Infrastructure Damage', label: t('infrastructureDamage'), icon: Building2, desc: t('infrastructureDamageDesc') },
+    { id: 'Person Needs Help', label: t('personNeedsHelp'), icon: LifeBuoy, desc: t('personNeedsHelpDesc') }
+  ];
+
   const [category, setCategory] = useState('Flooded Road');
   const [description, setDescription] = useState('');
   const [locationLat, setLocationLat] = useState(12.9352);
@@ -109,10 +112,10 @@ const ReportIncident = () => {
       {/* Header */}
       <div className="bg-[#111827] p-6 rounded-2xl border border-slate-800 shadow-xl">
         <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
-          <AlertTriangle className="w-7 h-7 text-amber-500" /> Community Incident Reporting
+          <AlertTriangle className="w-7 h-7 text-amber-500" /> {t('reportHeader')}
         </h1>
         <p className="text-sm text-slate-400 mt-1">
-          Report hazards in your area to alert fellow citizens and prioritize emergency response teams.
+          {t('reportSubtitle')}
         </p>
       </div>
 
@@ -120,7 +123,7 @@ const ReportIncident = () => {
         {/* Category Grid */}
         <div>
           <label className="block text-sm font-bold uppercase tracking-wider text-slate-300 mb-3">
-            Select Hazard Category
+            {t('selectHazard')}
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {categories.map((cat) => {
@@ -152,7 +155,7 @@ const ReportIncident = () => {
         {/* Severity Selector */}
         <div>
           <label className="block text-sm font-bold uppercase tracking-wider text-slate-300 mb-2">
-            Severity Level
+            {t('severityLabel')}
           </label>
           <div className="grid grid-cols-4 gap-3">
             {['low', 'medium', 'high', 'critical'].map((lvl) => (
@@ -178,13 +181,13 @@ const ReportIncident = () => {
         {/* Description Textarea */}
         <div>
           <label className="block text-sm font-bold uppercase tracking-wider text-slate-300 mb-2">
-            Incident Description & Landmarks
+            {t('descriptionLabel')}
           </label>
           <textarea
             rows={3}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Describe the depth of water, specific cross-streets, or stranded vehicles..."
+            placeholder={t('descriptionPlaceholder')}
             required
             className="w-full px-4 py-3 rounded-xl bg-[#0b1222] border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 text-sm font-medium"
           />
@@ -193,7 +196,7 @@ const ReportIncident = () => {
         {/* Photo Upload & Gemini AI Vision Analysis */}
         <div className="bg-[#0b1222] p-5 rounded-xl border border-slate-800 space-y-4">
           <label className="block text-xs font-bold uppercase tracking-wider text-slate-300">
-            Flood Photo & AI Hazard Analysis (Optional)
+            {t('photoUploadLabel')}
           </label>
 
           <input
@@ -238,7 +241,7 @@ const ReportIncident = () => {
               className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 text-blue-400 text-xs font-bold transition-colors"
             >
               <Navigation className={`w-3.5 h-3.5 ${detectingLoc ? 'animate-spin' : ''}`} />
-              {detectingLoc ? 'Detecting...' : 'Auto-Detect GPS'}
+              {detectingLoc ? 'Detecting...' : t('autoDetectGps')}
             </button>
           </div>
 
@@ -273,10 +276,10 @@ const ReportIncident = () => {
           className="w-full py-4 rounded-xl bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-600 text-white font-extrabold text-base shadow-xl shadow-red-600/20 hover:shadow-red-500/30 transition-all flex items-center justify-center gap-2"
         >
           {submitting ? (
-            'Submitting Incident Report...'
+            t('submittingReport')
           ) : (
             <>
-              <Send className="w-5 h-5" /> Dispatch Community Report
+              <Send className="w-5 h-5" /> {t('dispatchReportBtn')}
             </>
           )}
         </button>

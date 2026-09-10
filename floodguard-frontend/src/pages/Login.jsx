@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { ShieldCheck, UserCheck, Lock, Mail, ArrowRight, Sparkles } from 'lucide-react';
 import toast, { Toaster } from 'react-hot-toast';
+import { useLanguage } from '../components/LanguageSelector';
 
 const Login = () => {
+  const { t } = useLanguage();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -53,15 +55,15 @@ const Login = () => {
           <div className="inline-flex p-3 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 mb-2">
             <ShieldCheck className="w-8 h-8" />
           </div>
-          <h2 className="text-2xl font-extrabold text-white tracking-tight">FloodGuard Portal Login</h2>
-          <p className="text-xs text-slate-400">Access emergency command tools or community report portal</p>
+          <h2 className="text-2xl font-extrabold text-white tracking-tight">{t('loginTitle')}</h2>
+          <p className="text-xs text-slate-400">{t('loginSubtitle')}</p>
         </div>
 
         {/* 1-Click Demo Logins */}
         <div className="bg-[#0b1222] p-4 rounded-xl border border-slate-800 space-y-3">
           <div className="flex items-center justify-between text-xs font-bold text-slate-400 uppercase tracking-wider">
-            <span className="flex items-center gap-1.5"><Sparkles className="w-3.5 h-3.5 text-amber-400" /> Quick Demo Access</span>
-            <span className="text-[10px] text-emerald-400">Hackathon Ready</span>
+            <span className="flex items-center gap-1.5"><Sparkles className="w-3.5 h-3.5 text-amber-400" /> {t('quickDemo')}</span>
+            <span className="text-[10px] text-emerald-400">{t('hackathonReady')}</span>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <button
@@ -69,21 +71,21 @@ const Login = () => {
               disabled={loading}
               className="py-2.5 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 border border-slate-700 transition flex items-center justify-center gap-1.5"
             >
-              <UserCheck className="w-4 h-4 text-blue-400" /> Citizen View
+              <UserCheck className="w-4 h-4 text-blue-400" /> {t('citizenView')}
             </button>
             <button
               onClick={() => loginDemo('officer')}
               disabled={loading}
               className="py-2.5 px-3 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 text-xs font-bold text-blue-300 border border-blue-500/30 transition flex items-center justify-center gap-1.5"
             >
-              <ShieldCheck className="w-4 h-4 text-amber-400" /> Officer Portal
+              <ShieldCheck className="w-4 h-4 text-amber-400" /> {t('officerView')}
             </button>
           </div>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">Email Address</label>
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">{t('emailLabel')}</label>
             <div className="relative">
               <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5" />
               <input
@@ -98,7 +100,7 @@ const Login = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">Password</label>
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">{t('passwordLabel')}</label>
             <div className="relative">
               <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5" />
               <input
@@ -117,7 +119,7 @@ const Login = () => {
             disabled={loading}
             className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-sm shadow-lg shadow-blue-600/30 transition flex items-center justify-center gap-2 mt-2"
           >
-            {loading ? "Authenticating..." : <>Sign In <ArrowRight className="w-4 h-4" /></>}
+            {loading ? t('authenticating') : <>{t('signInBtn')} <ArrowRight className="w-4 h-4" /></>}
           </button>
         </form>
       </div>

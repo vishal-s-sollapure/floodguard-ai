@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { Play, RotateCcw, CloudRain, Zap, Sparkles } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useLanguage } from './LanguageSelector';
 
 const FloodSimulationControl = ({ onSimulate }) => {
+  const { t } = useLanguage();
   const [activePreset, setActivePreset] = useState('NORMAL');
 
   const presets = [
     {
       id: 'NORMAL',
-      label: 'Normal Weather',
+      label: t('presetNormal'),
       rainfall_mm: 12.0,
       water_level_m: 0.6,
       water_rise_rate: 0.05,
@@ -19,7 +21,7 @@ const FloodSimulationControl = ({ onSimulate }) => {
     },
     {
       id: 'MONSOON',
-      label: 'Heavy Monsoon Rain',
+      label: t('presetMonsoon'),
       rainfall_mm: 58.5,
       water_level_m: 1.82,
       water_rise_rate: 0.25,
@@ -30,7 +32,7 @@ const FloodSimulationControl = ({ onSimulate }) => {
     },
     {
       id: 'CLOUDBURST',
-      label: '🚨 Extreme Cloudburst Simulation',
+      label: t('presetCloudburst'),
       rainfall_mm: 94.0,
       water_level_m: 2.85,
       water_rise_rate: 0.48,
@@ -57,8 +59,8 @@ const FloodSimulationControl = ({ onSimulate }) => {
             <Sparkles className="w-5 h-5 text-amber-400" />
           </div>
           <div>
-            <h3 className="font-extrabold text-white text-base">Live Flood Simulation Mode</h3>
-            <p className="text-xs text-slate-400">Simulate real-time weather & sensor escalation for live demos</p>
+            <h3 className="font-extrabold text-white text-base">{t('simTitle')}</h3>
+            <p className="text-xs text-slate-400">{t('simSubtitle')}</p>
           </div>
         </div>
 

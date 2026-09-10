@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { getAssistant } from '../api/floodApi';
 import { Bot, Send, Sparkles, AlertCircle, Shield, ChevronDown, ChevronUp, User, MessageSquare } from 'lucide-react';
-
-const promptSuggestions = [
-  "What emergency steps should I take right now?",
-  "Where is the nearest open flood shelter?",
-  "What to do if water enters electrical outlets?",
-  "Is driving safe in Koramangala or Silk Board?"
-];
+import { useLanguage } from './LanguageSelector';
 
 const GeminiAssistantWidget = ({ riskScore = 87, riskLevel = "CRITICAL", location = "Koramangala" }) => {
+  const { t } = useLanguage();
+
+  const promptSuggestions = [
+    t('aiPrompt1'),
+    t('aiPrompt2'),
+    t('aiPrompt3'),
+    t('aiPrompt4')
+  ];
+
   const [messages, setMessages] = useState([
     {
       sender: 'ai',
@@ -63,12 +66,12 @@ const GeminiAssistantWidget = ({ riskScore = 87, riskLevel = "CRITICAL", locatio
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="font-extrabold text-white text-base">Gemini Emergency AI Assistant</h3>
+              <h3 className="font-extrabold text-white text-base">{t('aiTitle')}</h3>
               <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-blue-500/20 text-blue-300 border border-blue-500/30 flex items-center gap-1">
-                <Sparkles className="w-3 h-3 text-amber-400" /> Powered by Gemini
+                <Sparkles className="w-3 h-3 text-amber-400" /> {t('aiPoweredBy')}
               </span>
             </div>
-            <p className="text-xs text-slate-400">Live safety instructions, evacuation guidance & emergency help</p>
+            <p className="text-xs text-slate-400">{t('aiSubtitle')}</p>
           </div>
         </div>
 
@@ -149,7 +152,7 @@ const GeminiAssistantWidget = ({ riskScore = 87, riskLevel = "CRITICAL", locatio
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={`Ask Gemini safety assistant about ${location} flood risk...`}
+              placeholder={t('askAiPlaceholder')}
               className="flex-1 px-4 py-2.5 rounded-xl bg-[#0b1222] border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 text-xs font-semibold"
             />
             <button

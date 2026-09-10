@@ -1,7 +1,10 @@
 import React from 'react';
 import { TrendingUp, Clock, AlertCircle } from 'lucide-react';
+import { useLanguage } from './LanguageSelector';
 
 const RiskTrendWidget = ({ trendSeries, currentScore = 61.0, projectedScore = 74.5, trendDirection = 'RISING' }) => {
+  const { t } = useLanguage();
+
   if (!trendSeries || trendSeries.length === 0) {
     trendSeries = [
       { time: '-60m', score: 32.0 },
@@ -18,7 +21,7 @@ const RiskTrendWidget = ({ trendSeries, currentScore = 61.0, projectedScore = 74
       <div className="flex items-center justify-between border-b border-slate-800 pb-4">
         <div>
           <h3 className="text-lg font-extrabold text-white flex items-center gap-2">
-            <TrendingUp className="w-5 h-5 text-blue-400" /> 60-Minute Flood Risk Trend & 30-Min Projection
+            <TrendingUp className="w-5 h-5 text-blue-400" /> {t('trendTitle')}
           </h3>
           <p className="text-xs text-slate-400 mt-1">
             Real-time score trajectory with predictive AI projection (+30 minutes).
@@ -30,7 +33,7 @@ const RiskTrendWidget = ({ trendSeries, currentScore = 61.0, projectedScore = 74
           trendDirection === 'RISING' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' :
           'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
         }`}>
-          <TrendingUp className="w-3.5 h-3.5" /> {trendDirection.replace('_', ' ')}
+          <TrendingUp className="w-3.5 h-3.5" /> {trendDirection.includes('RISING') ? t('trendRising') : t('trendFalling')}
         </span>
       </div>
 

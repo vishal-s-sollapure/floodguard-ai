@@ -6,10 +6,12 @@ import AlertTicker from '../components/AlertTicker';
 import GeminiAssistantWidget from '../components/GeminiAssistantWidget';
 import FloodSimulationControl from '../components/FloodSimulationControl';
 import ExplainableRiskWidget from '../components/ExplainableRiskWidget';
+import { useLanguage } from '../components/LanguageSelector';
 import { getCurrentFlood, getWeather, getAlerts } from '../api/floodApi';
 import { CloudRain, Waves, RefreshCw, MapPin, Clock } from 'lucide-react';
 
 const Dashboard = () => {
+  const { t } = useLanguage();
   const [floodData, setFloodData] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
   const [alerts, setAlerts] = useState([]);
@@ -31,19 +33,16 @@ const Dashboard = () => {
       setLastUpdated(new Date().toLocaleTimeString());
     } catch (err) {
       console.error('Error fetching dashboard data:', err);
-    } finally {
+    } fontally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchData();
-
-    // Auto-refresh every 30 seconds
     const interval = setInterval(() => {
       fetchData();
     }, 30000);
-
     return () => clearInterval(interval);
   }, []);
 
@@ -61,7 +60,7 @@ const Dashboard = () => {
         <div>
           <div className="flex items-center gap-3">
             <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-              Bengaluru Flood Command Dashboard
+              {t('dashHeader')}
             </h1>
             <RiskBadge risk_level={riskLevel} size="small" />
           </div>
@@ -77,7 +76,7 @@ const Dashboard = () => {
           className="self-start sm:self-center flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-500/30 text-sm font-semibold transition-all"
         >
           <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-          Refresh Live Data
+          {t('refreshData')}
         </button>
       </div>
 
@@ -100,7 +99,7 @@ const Dashboard = () => {
         {/* Card 1: Risk Gauge */}
         <div className="bg-[#111827] p-6 rounded-2xl border border-slate-800 shadow-xl flex flex-col items-center justify-between hover:border-slate-700 transition-colors">
           <div className="w-full flex items-center justify-between mb-2">
-            <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider">Current Flood Risk Score</h3>
+            <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider">{t('currentScore')}</h3>
             <RiskBadge risk_level={riskLevel} size="small" />
           </div>
           
@@ -109,7 +108,7 @@ const Dashboard = () => {
           </div>
 
           <div className="w-full text-center bg-[#0d1322] p-3 rounded-xl border border-slate-800/80 mt-2">
-            <span className="text-xs text-slate-400 font-medium">Status Recommendation:</span>
+            <span className="text-xs text-slate-400 font-medium">{t('recommendation')}:</span>
             <p className="text-xs font-bold text-slate-200 mt-0.5 line-clamp-2">
               {floodData?.recommended_action || 'Monitor localized low-lying drainage channels.'}
             </p>
@@ -119,7 +118,7 @@ const Dashboard = () => {
         {/* Card 2: Rainfall */}
         <div className="bg-[#111827] p-6 rounded-2xl border border-slate-800 shadow-xl flex flex-col justify-between hover:border-slate-700 transition-colors">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider">Precipitation / Rainfall</h3>
+            <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider">{t('rainfall')}</h3>
             <div className="p-2 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20">
               <CloudRain className="w-5 h-5" />
             </div>
@@ -131,17 +130,17 @@ const Dashboard = () => {
               <span className="text-lg font-bold text-blue-400">mm/hr</span>
             </div>
             <p className="text-sm font-semibold text-slate-300 mt-2">
-              Condition: <span className="text-cyan-400">{weatherData?.description || 'Moderate Rain'}</span>
+              {t('condition')}: <span className="text-cyan-400">{weatherData?.description || 'Moderate Rain'}</span>
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-3 text-xs bg-[#0d1322] p-3 rounded-xl border border-slate-800/80">
             <div>
-              <span className="text-slate-500 block">Temperature</span>
+              <span className="text-slate-500 block">{t('temp')}</span>
               <span className="font-bold text-slate-200">{weatherData?.temperature_c ?? 24.2}°C</span>
             </div>
             <div>
-              <span className="text-slate-500 block">Humidity</span>
+              <span className="text-slate-500 block">{t('humidity')}</span>
               <span className="font-bold text-slate-200">{weatherData?.humidity_pct ?? 82}%</span>
             </div>
           </div>
@@ -150,7 +149,7 @@ const Dashboard = () => {
         {/* Card 3: Water Level */}
         <div className="bg-[#111827] p-6 rounded-2xl border border-slate-800 shadow-xl flex flex-col justify-between hover:border-slate-700 transition-colors">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider">Water Sensor Level</h3>
+            <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider">{t('waterLevel')}</h3>
             <div className="p-2 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
               <Waves className="w-5 h-5" />
             </div>
@@ -162,17 +161,17 @@ const Dashboard = () => {
               <span className="text-lg font-bold text-cyan-400">meters</span>
             </div>
             <p className="text-sm font-semibold text-slate-300 mt-2">
-              Rise Rate: <span className="text-amber-400 font-bold">+{waterRiseRate} m/hr</span>
+              {t('riseRate')}: <span className="text-amber-400 font-bold">+{waterRiseRate} m/hr</span>
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-3 text-xs bg-[#0d1322] p-3 rounded-xl border border-slate-800/80">
             <div>
-              <span className="text-slate-500 block">Drainage Capacity</span>
+              <span className="text-slate-500 block">{t('drainageCap')}</span>
               <span className="font-bold text-amber-400 uppercase">{floodData?.drainage_risk || 'High Risk'}</span>
             </div>
             <div>
-              <span className="text-slate-500 block">Est. Impact ETA</span>
+              <span className="text-slate-500 block">{t('impactEta')}</span>
               <span className="font-bold text-slate-200">{floodData?.eta_minutes ? `${floodData.eta_minutes} mins` : 'Immediate'}</span>
             </div>
           </div>
@@ -183,7 +182,7 @@ const Dashboard = () => {
       <div className="space-y-3">
         <div className="flex items-center justify-between px-1">
           <h2 className="text-lg font-extrabold text-white tracking-tight flex items-center gap-2">
-            <MapPin className="w-5 h-5 text-blue-500" /> Bengaluru Neighborhood Risk Map
+            <MapPin className="w-5 h-5 text-blue-500" /> {t('bengaluruMapTitle')}
           </h2>
           <span className="text-xs text-slate-400 font-medium">Click markers for localized risk telemetry</span>
         </div>

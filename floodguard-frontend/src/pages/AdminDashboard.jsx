@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { getReports, updateReportStatus } from '../api/floodApi';
 import { ShieldCheck, AlertOctagon, CheckCircle2, Clock, FileText, Printer, Eye, Truck, Sparkles, Filter } from 'lucide-react';
 import toast, { Toaster } from 'react-hot-toast';
+import { useLanguage } from '../components/LanguageSelector';
 
 const AdminDashboard = () => {
+  const { t } = useLanguage();
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterStatus, setFilterStatus] = useState('ALL');
@@ -63,14 +65,14 @@ const AdminDashboard = () => {
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight print:text-black">
-                Disaster Response Officer Portal
+                {t('adminHeader')}
               </h1>
               <span className="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-blue-500/10 text-blue-400 border border-blue-500/20">
-                Official Command
+                {t('officialCommand')}
               </span>
             </div>
             <p className="text-xs sm:text-sm text-slate-400 mt-0.5 print:text-gray-600">
-              Verify citizen incident reports, dispatch emergency teams, and authorize resolution tags.
+              {t('adminSubtitle')}
             </p>
           </div>
         </div>
@@ -79,7 +81,7 @@ const AdminDashboard = () => {
           onClick={handleExportPDF}
           className="px-5 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-xs sm:text-sm shadow-lg flex items-center justify-center gap-2 print:hidden"
         >
-          <Printer className="w-4 h-4" /> Export Executive PDF Report
+          <Printer className="w-4 h-4" /> {t('exportPdf')}
         </button>
       </div>
 
@@ -90,7 +92,7 @@ const AdminDashboard = () => {
             <Clock className="w-6 h-6" />
           </div>
           <div>
-            <span className="text-xs uppercase font-bold text-slate-400">Pending Review</span>
+            <span className="text-xs uppercase font-bold text-slate-400">{t('pendingReview')}</span>
             <p className="text-2xl font-black text-amber-400">{pendingCount}</p>
           </div>
         </div>
@@ -100,7 +102,7 @@ const AdminDashboard = () => {
             <ShieldCheck className="w-6 h-6" />
           </div>
           <div>
-            <span className="text-xs uppercase font-bold text-slate-400">Verified Incidents</span>
+            <span className="text-xs uppercase font-bold text-slate-400">{t('verifiedIncidents')}</span>
             <p className="text-2xl font-black text-blue-400">{verifiedCount}</p>
           </div>
         </div>
@@ -110,7 +112,7 @@ const AdminDashboard = () => {
             <CheckCircle2 className="w-6 h-6" />
           </div>
           <div>
-            <span className="text-xs uppercase font-bold text-slate-400">Resolved Hazards</span>
+            <span className="text-xs uppercase font-bold text-slate-400">{t('resolvedHazards')}</span>
             <p className="text-2xl font-black text-emerald-400">{resolvedCount}</p>
           </div>
         </div>
@@ -120,7 +122,7 @@ const AdminDashboard = () => {
       <div className="bg-[#111827] p-6 rounded-2xl border border-slate-800 shadow-xl space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
           <h3 className="text-lg font-bold text-white flex items-center gap-2">
-            <FileText className="w-5 h-5 text-blue-400" /> Incident Review & Dispatch Queue
+            <FileText className="w-5 h-5 text-blue-400" /> {t('queueTitle')}
           </h3>
 
           {/* Filter Bar */}
@@ -135,7 +137,7 @@ const AdminDashboard = () => {
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
-                {status}
+                {t(`filter${status.charAt(0) + status.slice(1).toLowerCase()}`)}
               </button>
             ))}
           </div>

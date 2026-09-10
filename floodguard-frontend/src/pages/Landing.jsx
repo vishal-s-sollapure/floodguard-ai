@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Shield, Activity, FileText, ArrowRight, Zap, CloudRain, Cpu } from 'lucide-react';
+import { useLanguage } from '../components/LanguageSelector';
 
 const Landing = () => {
+  const { t } = useLanguage();
+
   return (
     <div className="relative min-h-[calc(100vh-70px)] bg-gradient-to-b from-[#0a0f1e] via-[#0d1733] to-[#0a0f1e] flex flex-col justify-center items-center px-4 sm:px-6 overflow-hidden">
       {/* Animated Rain Background */}
@@ -27,7 +30,7 @@ const Landing = () => {
       <div className="relative z-10 max-w-5xl text-center space-y-8 py-12">
         {/* Subtitle pill */}
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs sm:text-sm font-semibold shadow-lg backdrop-blur-sm">
-          <Zap className="w-4 h-4 text-blue-400" /> AI-Powered Real-Time Early Flood Warning System
+          <Zap className="w-4 h-4 text-blue-400" /> {t('heroBadge')}
         </div>
 
         {/* Hero Heading */}
@@ -37,13 +40,12 @@ const Landing = () => {
 
         {/* Slogan */}
         <p className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-slate-200 to-slate-400 bg-clip-text text-transparent tracking-wide">
-          Predict. Prepare. Protect.
+          {t('heroTagline')}
         </p>
 
         {/* Description */}
         <p className="max-w-2xl mx-auto text-base sm:text-lg text-slate-400 leading-relaxed font-normal">
-          Empowering communities and urban authorities with hyper-local flood risk analytics, 
-          real-time weather monitoring, predictive emergency alerts, and crowdsourced community incident reporting.
+          {t('heroSubtitle')}
         </p>
 
         {/* Action Buttons */}
@@ -53,7 +55,7 @@ const Landing = () => {
             className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white font-bold text-lg shadow-xl shadow-blue-600/30 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-3"
           >
             <Activity className="w-5 h-5" />
-            View Live Dashboard
+            {t('viewDashboardBtn')}
             <ArrowRight className="w-5 h-5" />
           </Link>
 
@@ -62,7 +64,7 @@ const Landing = () => {
             className="w-full sm:w-auto px-8 py-4 rounded-xl bg-[#111c38] hover:bg-[#162447] border border-slate-700 text-slate-200 hover:text-white font-bold text-lg shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-3"
           >
             <FileText className="w-5 h-5 text-red-400" />
-            Report Incident
+            {t('reportIncidentBtn')}
           </Link>
         </div>
 
@@ -72,9 +74,9 @@ const Landing = () => {
             <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-4">
               <Cpu className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-white mb-2">Predictive Engine</h3>
+            <h3 className="text-lg font-bold text-white mb-2">{t('feat1Title')}</h3>
             <p className="text-sm text-slate-400">
-              Multi-variable risk scoring combining rainfall intensity, rise rate, historical trends, and drainage capacity.
+              {t('feat1Desc')}
             </p>
           </div>
 
@@ -82,9 +84,9 @@ const Landing = () => {
             <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-4">
               <CloudRain className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-white mb-2">Live Weather Sync</h3>
+            <h3 className="text-lg font-bold text-white mb-2">{t('feat2Title')}</h3>
             <p className="text-sm text-slate-400">
-              Integrated real-time OpenWeatherMap data feeds providing hyper-local precipitation and humidity monitoring.
+              {t('feat2Desc')}
             </p>
           </div>
 
@@ -92,9 +94,9 @@ const Landing = () => {
             <div className="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 mb-4">
               <Shield className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-white mb-2">Community Response</h3>
+            <h3 className="text-lg font-bold text-white mb-2">{t('feat3Title')}</h3>
             <p className="text-sm text-slate-400">
-              Crowdsourced hazard mapping allowing citizens to report flooded roads, tree falls, and infrastructure danger.
+              {t('feat3Desc')}
             </p>
           </div>
         </div>

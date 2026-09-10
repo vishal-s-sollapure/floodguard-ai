@@ -1,7 +1,10 @@
 import React from 'react';
 import { HelpCircle, Info, Sparkles, TrendingUp, AlertTriangle } from 'lucide-react';
+import { useLanguage } from './LanguageSelector';
 
 const ExplainableRiskWidget = ({ breakdown, riskScore, riskLevel, explanation, projectedScore, trendDirection }) => {
+  const { t } = useLanguage();
+
   if (!breakdown) {
     // Default fallback breakdown if not provided
     breakdown = {
@@ -20,21 +23,21 @@ const ExplainableRiskWidget = ({ breakdown, riskScore, riskLevel, explanation, p
         <div>
           <div className="flex items-center gap-2">
             <h3 className="text-lg font-extrabold text-white flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-amber-400" /> Explainable AI (XAI) Score Breakdown
+              <Sparkles className="w-5 h-5 text-amber-400" /> {t('xaiTitle')}
             </h3>
             <span className="px-2 py-0.5 rounded text-[10px] font-black bg-blue-500/20 text-blue-300 border border-blue-500/30 uppercase">
               Transparent ML
             </span>
           </div>
           <p className="text-xs text-slate-400 mt-1">
-            Exact point contributions showing why the AI model evaluated risk at <strong className="text-white">{riskScore || 61}%</strong>.
+            {t('xaiSubtitle')} (<strong className="text-white">{riskScore || 61}%</strong>)
           </p>
         </div>
 
         {projectedScore && (
           <div className="px-3.5 py-2 rounded-xl bg-amber-950/40 border border-amber-500/30 text-xs font-bold text-amber-300 flex items-center gap-2 self-start sm:self-center">
             <TrendingUp className="w-4 h-4 text-amber-400 animate-pulse" />
-            30-Min Projection: <span className="text-white font-black text-sm">{projectedScore}%</span>
+            {t('projected30m')}: <span className="text-white font-black text-sm">{projectedScore}%</span>
           </div>
         )}
       </div>
