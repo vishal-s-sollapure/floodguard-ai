@@ -213,7 +213,18 @@ export const translations = {
     dispatchBtn: 'DISPATCH NEIGHBORHOOD EMERGENCY BROADCAST',
     recentDispatches: 'Recent Emergency Broadcast Dispatches Log',
     recipientsReached: 'Residents Reached',
-    deliveryRate: 'Delivery Rate'
+    deliveryRate: 'Delivery Rate',
+
+    // Historical Analytics
+    historyTitle: '30-Day Historical Flood Analytics & Frequency Heatmap',
+    historySubtitle: 'Analyze past precipitation trends, peak inundation water levels, and neighborhood flood risk cycles.',
+    peakRainfallRecord: 'Peak Rainfall Record',
+    maxWaterLevel: 'Max Water Level',
+    floodDaysCount: '30-Day Flood Days',
+    historicalRiskTier: 'Historical Risk Tier',
+    timeframeLabel: 'Timeframe Window',
+    neighborhoodFrequencyTitle: 'Neighborhood Inundation Frequency Heatmap Ranking',
+    majorFloodEvents: 'Major Historical Flood Events Log'
   },
   kn: {
     // Navigation & Auth

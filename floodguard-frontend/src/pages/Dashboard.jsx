@@ -8,6 +8,7 @@ import FloodSimulationControl from '../components/FloodSimulationControl';
 import ExplainableRiskWidget from '../components/ExplainableRiskWidget';
 import EvacuationRouteWidget from '../components/EvacuationRouteWidget';
 import DisasterImpactAnalytics from '../components/DisasterImpactAnalytics';
+import HistoricalAnalyticsWidget from '../components/HistoricalAnalyticsWidget';
 import { useLanguage } from '../components/LanguageSelector';
 import { getCurrentFlood, getWeather, getAlerts } from '../api/floodApi';
 import { CloudRain, Waves, RefreshCw, MapPin, Clock } from 'lucide-react';
@@ -186,6 +187,9 @@ const Dashboard = () => {
 
       {/* Disaster Impact & Loss Estimation Analytics */}
       <DisasterImpactAnalytics currentRiskScore={riskScore} waterLevel={waterLevel} rainRate={rainfall} />
+
+      {/* 30-Day Historical Risk Analytics & Flood Log Heatmap */}
+      <HistoricalAnalyticsWidget />
 
       {/* Middle Row: Leaflet Map */}
       <div className="space-y-3">
