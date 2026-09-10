@@ -188,7 +188,20 @@ export const translations = {
     phoneLabel: 'Emergency Phone Number',
     locationNotesLabel: 'Location & Landmarks (Flat / Building)',
     dispatchSosBtn: 'DISPATCH PRIORITY SOS RESCUE NOW',
-    sosSuccessToast: 'SOS Emergency Ticket Dispatched with Priority!'
+    sosSuccessToast: 'SOS Emergency Ticket Dispatched with Priority!',
+
+    // Disaster Impact Analytics
+    impactTitle: 'Disaster Impact & Economic Loss Analytics',
+    impactSubtitle: 'Real-time estimation of affected households, submerged infrastructure, and economic financial losses.',
+    affectedHouseholds: 'Affected Households',
+    affectedPop: 'Estimated Population Impact',
+    estLossCr: 'Est. Economic Loss (₹ Cr)',
+    submergedInfra: 'Critical Infra At-Risk',
+    shelterDemand: 'Relief Shelter Capacity Needed',
+    resLoss: 'Residential Property Loss',
+    commLoss: 'Commercial Business Loss',
+    infraLoss: 'Public Infrastructure Repair',
+    downloadReport: 'Download Impact Summary Report'
   },
   kn: {
     // Navigation & Auth

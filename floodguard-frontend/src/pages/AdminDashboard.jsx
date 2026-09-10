@@ -4,6 +4,7 @@ import { ShieldCheck, AlertOctagon, CheckCircle2, Clock, FileText, Printer, Eye,
 import toast, { Toaster } from 'react-hot-toast';
 import { useLanguage } from '../components/LanguageSelector';
 import SOSCommandPanel from '../components/SOSCommandPanel';
+import DisasterImpactAnalytics from '../components/DisasterImpactAnalytics';
 
 const AdminDashboard = () => {
   const { t } = useLanguage();
@@ -121,6 +122,9 @@ const AdminDashboard = () => {
 
       {/* SOS Rescue Urgent Priority Queue */}
       <SOSCommandPanel />
+
+      {/* Disaster Impact & Economic Loss Analytics */}
+      <DisasterImpactAnalytics />
 
       {/* Main Table Section */}
       <div className="bg-[#111827] p-6 rounded-2xl border border-slate-800 shadow-xl space-y-6">

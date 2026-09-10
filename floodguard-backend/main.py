@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from database import connect_to_mongo, close_mongo_connection
-from routes import flood, reports, alerts, weather, auth, evacuation, sos
+from routes import flood, reports, alerts, weather, auth, evacuation, sos, impact
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -36,6 +36,7 @@ app.include_router(alerts.router)
 app.include_router(weather.router)
 app.include_router(evacuation.router)
 app.include_router(sos.router)
+app.include_router(impact.router, prefix="/api/impact", tags=["Disaster Impact & Loss Analytics"])
 
 # Health check endpoint
 @app.get("/")

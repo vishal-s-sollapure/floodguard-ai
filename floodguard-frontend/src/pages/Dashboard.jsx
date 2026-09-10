@@ -7,6 +7,7 @@ import GeminiAssistantWidget from '../components/GeminiAssistantWidget';
 import FloodSimulationControl from '../components/FloodSimulationControl';
 import ExplainableRiskWidget from '../components/ExplainableRiskWidget';
 import EvacuationRouteWidget from '../components/EvacuationRouteWidget';
+import DisasterImpactAnalytics from '../components/DisasterImpactAnalytics';
 import { useLanguage } from '../components/LanguageSelector';
 import { getCurrentFlood, getWeather, getAlerts } from '../api/floodApi';
 import { CloudRain, Waves, RefreshCw, MapPin, Clock } from 'lucide-react';
@@ -182,6 +183,9 @@ const Dashboard = () => {
 
       {/* Evacuation Route Intelligence Widget */}
       <EvacuationRouteWidget onRouteCalculated={(route) => setActiveRoute(route)} />
+
+      {/* Disaster Impact & Loss Estimation Analytics */}
+      <DisasterImpactAnalytics currentRiskScore={riskScore} waterLevel={waterLevel} rainRate={rainfall} />
 
       {/* Middle Row: Leaflet Map */}
       <div className="space-y-3">
