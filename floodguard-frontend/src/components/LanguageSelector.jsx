@@ -201,7 +201,19 @@ export const translations = {
     resLoss: 'Residential Property Loss',
     commLoss: 'Commercial Business Loss',
     infraLoss: 'Public Infrastructure Repair',
-    downloadReport: 'Download Impact Summary Report'
+    downloadReport: 'Download Impact Summary Report',
+
+    // Emergency Broadcast
+    broadcastTitle: 'Neighborhood Emergency Broadcast Dispatcher',
+    broadcastSubtitle: 'Dispatch simulated Cell Broadcast (CAP), WhatsApp Emergency Bot, and SMS alerts in 3 languages.',
+    targetZoneLabel: 'Target Municipal Zone',
+    severityLevelLabel: 'Emergency Threat Level',
+    channelsLabel: 'Alert Dispatch Channels',
+    previewTab: 'Multilingual Message Preview',
+    dispatchBtn: 'DISPATCH NEIGHBORHOOD EMERGENCY BROADCAST',
+    recentDispatches: 'Recent Emergency Broadcast Dispatches Log',
+    recipientsReached: 'Residents Reached',
+    deliveryRate: 'Delivery Rate'
   },
   kn: {
     // Navigation & Auth

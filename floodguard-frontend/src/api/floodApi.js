@@ -33,6 +33,8 @@ export const getActiveSOS = () => api.get('/api/sos/active')
 export const dispatchSOS = (id, data) => api.patch(`/api/sos/${id}/dispatch`, data)
 export const getImpactEstimation = (data) => api.post('/api/impact/estimate', data)
 export const getCityImpactSummary = (params) => api.get('/api/impact/city-summary', { params })
+export const sendBroadcast = (data) => api.post('/api/broadcast/send', data)
+export const getBroadcastHistory = () => api.get('/api/broadcast/history')
 export const loginUser = (data) => api.post('/api/auth/login', data)
 export const registerUser = (data) => api.post('/api/auth/register', data)
 

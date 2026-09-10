@@ -5,6 +5,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useLanguage } from '../components/LanguageSelector';
 import SOSCommandPanel from '../components/SOSCommandPanel';
 import DisasterImpactAnalytics from '../components/DisasterImpactAnalytics';
+import EmergencyBroadcastWidget from '../components/EmergencyBroadcastWidget';
 
 const AdminDashboard = () => {
   const { t } = useLanguage();
@@ -122,6 +123,9 @@ const AdminDashboard = () => {
 
       {/* SOS Rescue Urgent Priority Queue */}
       <SOSCommandPanel />
+
+      {/* Neighborhood Emergency Broadcast Dispatcher */}
+      <EmergencyBroadcastWidget />
 
       {/* Disaster Impact & Economic Loss Analytics */}
       <DisasterImpactAnalytics />
