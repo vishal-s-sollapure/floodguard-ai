@@ -1,215 +1,201 @@
-# 🌊 FloodGuard AI
-### AI-Powered Urban Flood Monitoring & Emergency Response Platform
+# 🌊 FloodGuard AI — Hyper-Local Early Warning & Disaster Response System
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-floodguard--ai--seven.vercel.app-blue?style=for-the-badge)](https://floodguard-ai-seven.vercel.app)
-[![Backend API](https://img.shields.io/badge/Backend%20API-Render-green?style=for-the-badge)](https://floodguard-ai-23yq.onrender.com)
-[![GitHub](https://img.shields.io/badge/GitHub-vishal--s--sollapure-black?style=for-the-badge&logo=github)](https://github.com/vishal-s-sollapure/floodguard-ai)
+[![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![Google Gemini AI](https://img.shields.io/badge/Google_Gemini_AI-8E75B2?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-> **CodeMyFYP National Virtual Hackathon 2026 — Climate & Communities Track**
+**FloodGuard AI** is a state-of-the-art, hyper-local flood risk analytics, evacuation intelligence, and emergency response platform built for municipal disaster management authorities and citizens in urban centers (e.g., Bengaluru). 
 
----
-
-## 🎯 Problem Statement
-
-Urban flooding creates three critical failures:
-- Citizens don't know which areas are becoming dangerous in real time
-- Authorities lack a unified view combining water levels, rainfall, and community reports
-- Emergency response is **reactive** rather than **predictive**
-
-Every year, urban flooding disrupts communities, damages infrastructure, and puts lives at risk — not because we lack data, but because we lack a system that connects it.
+It combines mathematical risk scoring, Gemini AI vision hazard analysis, safe route navigation around submerged underpasses, prioritized SOS rescue dispatching for vulnerable populations, disaster economic loss estimation, and multi-channel cell broadcast alerting across **English 🇬🇧, Kannada 🇮🇳, and Hindi 🇮🇳**.
 
 ---
 
-## 💡 Solution
+## 🌟 Key System Capabilities
 
-**FloodGuard AI** combines weather data, AI-based risk analysis, interactive maps, and community crowdsourcing into one unified platform — helping communities **predict, prepare, and respond** to urban flooding before it becomes a disaster.
+### 1. 🔍 Explainable AI (XAI) Risk Engine
+- Calculates a dynamic **0–100 Weighted Flood Risk Score** evaluating 6 environmental variables:
+  - 🌧️ **Precipitation / Rainfall** (30% weight)
+  - 🌊 **Water Sensor Level** (25% weight)
+  - 📈 **Water Rise Rate** (20% weight)
+  - 🏛️ **Historical Flood Frequency** (10% weight)
+  - 🏞️ **Drainage Capacity & Bottlenecks** (10% weight)
+  - 🏙️ **Population Exposure Density** (5% weight)
+- Provides human-readable quantitative points contribution breakdowns explaining **WHY** a neighborhood is at risk.
 
----
+### 2. 📈 60-Minute Risk Trend & 30-Min Predictive Projection
+- Real-time time-series telemetry graph showing past 45-minute risk trajectory and **+30 Minute Predictive Projection** (Rising vs Falling Risk).
 
-## 🚀 Live Demo
+### 3. 🧭 Safe Evacuation Route Intelligence & Relief Shelters
+- Powered by Leaflet.js spatial maps.
+- Dynamically calculates safe evacuation routes that **bypass submerged underpasses (e.g., Koramangala 100ft Underpass)** and low-lying storm drains.
+- Displays live emergency shelter centers with real-time bed occupancy counts, helpline contacts, and amenities (clean water, medical stations, hot meals).
 
-🌐 **Frontend:** https://floodguard-ai-seven.vercel.app  
-⚙️ **Backend API:** https://floodguard-ai-23yq.onrender.com  
-📖 **API Docs:** https://floodguard-ai-23yq.onrender.com/docs  
+### 4. 🚨 Vulnerable-Population SOS Rescue Dispatcher
+- Allows senior citizens (65+), hospital ICU patients, mobility-impaired residents, and rooftop-stranded families to trigger emergency rescue tickets.
+- **Priority Ranking Algorithm (0–100 Pts)** automatically escalates life-threatening cases to **PRIORITY 1 (90+ Pts)** for immediate NDRF boat, helicopter, or ambulance dispatch.
 
-> ⚠️ Note: Backend is on Render free tier — first request may take 30-50 seconds to wake up.
+### 5. 📊 Disaster Impact & Economic Loss Estimation Analytics
+- Computes municipal loss projections for urban disaster reports:
+  - **Estimated Affected Households & Population Impact** (e.g., 2,411 households / 10,126 citizens).
+  - **Financial Loss Breakdown (in ₹ Crores & Lakhs)**: Residential Damage, Commercial Business Loss, Municipal Infrastructure Repair.
+  - **Submerged Critical Infrastructure Risk Matrix**: 220kV Electrical Substations, Rajakaluve Trunk Drains, Agara Transit Corridors, BWSSB Water Treatment Stations.
+  - **Relief Shelter Demand**: Emergency camps needed & daily ration requirements.
 
----
+### 6. 🌐 Neighborhood Emergency Broadcast & SMS Simulator
+- Allows Disaster Response Officers to trigger simulated cell alerts across affected municipal zones with 1 click.
+- Supports 3 channels: 📱 **Cell Broadcast (CAP)**, 💬 **WhatsApp Emergency Bot**, 📩 **Mass SMS**.
+- Produces automatic multi-lingual alert previews in **English 🇬🇧, Kannada 🇮🇳, and Hindi 🇮🇳**.
 
-## ✨ Features
+### 7. 📈 30-Day Historical Risk Analytics & Frequency Heatmap
+- 30-day daily precipitation vs inundation time-series charts.
+- Neighborhood Inundation Frequency Heatmap Rankings (% of flood days per month across Bellandur, Silk Board, Koramangala, HSR Layout, and Indiranagar).
 
-### 1. 🗺️ Live Flood Command Dashboard
-- Real-time flood risk score with animated gauge
-- Live weather data from OpenWeatherMap API
-- Bengaluru neighborhood risk map with color-coded zones
-- Auto-refreshing alert ticker
+### 8. 🖼️ Gemini Vision AI Hazard Image Analysis
+- Citizens upload emergency hazard photos during community reporting.
+- Google Gemini Vision API analyzes damage severity, water depth, structural safety risks, and provides automated verification notes.
 
-### 2. 🤖 AI Flood Risk Engine
-- Multi-variable weighted scoring model
-- Inputs: Rainfall intensity, water level, rise rate, historical floods, drainage risk, population
-- Outputs: Risk score (0-100%), risk level, ETA, recommended action
-- Thresholds: LOW (0-30) → MODERATE (31-60) → HIGH (61-80) → CRITICAL (81-100)
-
-### 3. 🚨 Smart Emergency Alerts
-- Location-specific auto-generated warnings
-- Severity-based action recommendations
-- AI assistant powered by Google Gemini API
-
-### 4. 📍 Community Incident Reporting & Gemini Vision AI
-- Citizens report: Flooded Road, Blocked Drain, Fallen Tree, Electrical Danger, Infrastructure Damage, Person Needs Help
-- Flood photo upload with **Google Gemini Vision AI** hazard depth analysis
-- GPS auto-detection & severity classification
-- Reports saved to MongoDB Atlas
-
-### 5. 🛡️ Disaster Officer Command Portal (`/admin`)
-- Role-based Access Control (Citizen vs. Response Officer)
-- Live queue verification (`Pending` → `Verified` → `Resolved`)
-- Rescue team dispatch trigger & status moderation
-- 1-click Executive PDF Disaster Report generator
-
-### 6. 🗺️ Emergency Resource Map & Safe Shelter Navigation
-- Active shelter markers with live bed capacity and status
-- Safe evacuation pathway overlays
-- Hospital markers & risk zone radius indicators
+### 9. 🛡️ Officer Command Center Portal & PDF Export
+- Official command portal with incident review queues, 1-click rescue boat/chopper dispatch controls, status filters, and **1-Click Disaster Report PDF Export**.
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ System Architecture
 
-```text
-                               ┌───────────────────────────────────┐
-                               │     Vercel Frontend (React)       │
-                               │   https://floodguard-ai-seven...  │
-                               └─────────────────┬─────────────────┘
-                                                 │
-                                                 │ REST API (Axios)
-                                                 ▼
-                               ┌───────────────────────────────────┐
-                               │     Render Backend (FastAPI)      │
-                               │   https://floodguard-ai-23yq...   │
-                               └────┬────────────┬────────────┬────┘
-                                    │            │            │
-             ┌──────────────────────┘            │            └──────────────────────┐
-             ▼                                   ▼                                   ▼
-┌─────────────────────────┐         ┌─────────────────────────┐         ┌─────────────────────────┐
-│     OpenWeatherMap      │         │      MongoDB Atlas      │         │     Google Gemini AI    │
-│  Live Rain & Temp Feed  │         │  Incident Reports Store │         │  Emergency AI Assistant │
-└─────────────────────────┘         └─────────────────────────┘         └─────────────────────────┘
-```
+```mermaid
+flowchart TD
+    subgraph Data Layer
+        A[Sensor Telemetry / Rain Gauges] --> C[FastAPI Backend Engine]
+        B[Citizen Incident Reports & Vision Photos] --> C
+        D[OpenWeatherMap API] --> C
+    end
 
-### Directory Structure
+    subgraph Intelligence & Analytics Layer
+        C --> E[Weighted Risk Engine - services/risk_engine.py]
+        C --> F[Explainable AI Engine - services/xai_engine.py]
+        C --> G[Evacuation Routing Engine - services/evacuation_service.py]
+        C --> H[Vulnerability SOS Priority Engine - services/sos_service.py]
+        C --> I[Economic Loss Estimation Engine - services/impact_engine.py]
+        C --> J[Google Gemini AI Vision API]
+    end
 
-```text
-FloodRescue/
-├── floodguard-backend/          # FastAPI + Motor MongoDB + Risk Engine + Gemini
-│   ├── main.py                  # FastAPI Application & CORS configuration
-│   ├── database.py              # MongoDB Atlas connection handler
-│   ├── models/schemas.py        # Pydantic data schemas
-│   ├── services/
-│   │   ├── risk_engine.py       # Weighted mathematical risk algorithm
-│   │   ├── weather_service.py   # OpenWeatherMap API integration with fallback
-│   │   └── gemini_service.py    # Google Gemini AI assistant integration
-│   └── routes/
-│       ├── flood.py             # Risk prediction & history routes
-│       ├── reports.py           # Community incident reporting routes
-│       ├── alerts.py            # Emergency alerts & AI assistant routes
-│       └── weather.py           # Real-time weather data endpoint
-└── floodguard-frontend/         # React + Vite + Tailwind CSS + Leaflet
-    ├── index.html
-    └── src/
-        ├── App.jsx              # Main React Application Router
-        ├── api/floodApi.js      # Centralized Axios API client
-        ├── components/
-        │   ├── Navbar.jsx       # Global navigation bar
-        │   ├── RiskGauge.jsx    # SVG animated risk score meter
-        │   ├── RiskBadge.jsx    # Severity status indicator
-        │   ├── MapView.jsx      # Leaflet interactive spatial map
-        │   └── AlertTicker.jsx  # Real-time emergency ticker
-        └── pages/
-            ├── Landing.jsx      # Animated landing hero page
-            ├── Dashboard.jsx    # Main flood command dashboard
-            ├── RiskPredictor.jsx# AI risk predictor simulator
-            └── ReportIncident.jsx# Crowd-sourced incident logger with GPS
+    subgraph Presentation & Command Layer
+        E & F & G & H & I & J --> K[React + Vite Frontend Dashboard]
+        K --> L[Spatial Leaflet.js Neighborhood Map]
+        K --> M[Officer Command Center Portal /admin]
+        K --> N[Multilingual i18n Engine - EN, KN, HI]
+        M --> O[Municipal PDF Damage Report Export]
+    end
 ```
 
 ---
 
-## ⚙️ Local Setup
+## 🛠️ Technology Stack
+
+| Layer | Technologies Used |
+| :--- | :--- |
+| **Backend Framework** | Python 3.10+, FastAPI, Uvicorn, Pydantic |
+| **Database** | MongoDB Atlas / In-Memory Seeded Cache |
+| **AI / Machine Learning** | Google Gemini AI (Vision & Emergency Assistant) |
+| **Frontend Framework** | React 18, Vite, React Router DOM |
+| **Styling & Components** | TailwindCSS, Glassmorphism, Lucide Icons, React Hot Toast |
+| **Spatial Mapping** | Leaflet.js, React-Leaflet |
+| **Multilingual i18n** | Dynamic Language Provider (English 🇬🇧, Kannada 🇮🇳, Hindi 🇮🇳) |
+
+---
+
+## 🔌 API Endpoints Reference
+
+### 1. Flood & Risk Telemetry (`/api/flood`)
+- `GET /api/flood/current` — Returns current flood telemetry, water level, rainfall, and 0-100 risk score.
+- `POST /api/flood/predict` — Simulates risk score for custom environmental parameters.
+- `GET /api/flood/xai-breakdown` — Returns Explainable AI quantitative score contribution per variable.
+- `GET /api/flood/trend-projection` — Returns 60-min trend and +30 min forecast.
+
+### 2. Evacuation & Relief Shelters (`/api/evacuation`)
+- `GET /api/evacuation/shelters` — Serves live emergency shelters with capacity & amenities.
+- `POST /api/evacuation/route` — Calculates safe evacuation route avoiding submerged underpasses.
+
+### 3. Vulnerable SOS Rescue (`/api/sos`)
+- `POST /api/sos/trigger` — Dispatches emergency SOS ticket with priority score.
+- `GET /api/sos/active` — Returns active prioritized SOS queue.
+- `PATCH /api/sos/{id}/dispatch` — Updates officer unit dispatch status.
+
+### 4. Disaster Impact & Loss Estimation (`/api/impact`)
+- `POST /api/impact/estimate` — Calculates affected households, ₹ Crores loss, and infra risk matrix.
+- `GET /api/impact/city-summary` — Returns municipal cumulative flood damage summary.
+
+### 5. Emergency Broadcast (`/api/broadcast`)
+- `POST /api/broadcast/send` — Dispatches simulated multi-channel cell broadcast in EN, KN, HI.
+- `GET /api/broadcast/history` — Returns recent broadcast dispatch logs.
+
+### 6. Historical Analytics (`/api/history`)
+- `GET /api/history/analytics` — Serves 30-day daily precipitation vs water level time-series.
+- `GET /api/history/neighborhood-frequency` — Returns neighborhood flood frequency rankings.
+
+### 7. Auth & Incidents (`/api/auth`, `/api/reports`)
+- `POST /api/auth/login` — JWT Authentication for Officers & Citizens.
+- `POST /api/reports` — Submits citizen incident report with location.
+- `POST /api/reports/analyze-image` — Runs Gemini AI Vision hazard analysis.
+
+---
+
+## ⚡ Quick-Start Installation & Setup
 
 ### Prerequisites
-- Node.js 18+
-- Python 3.10+
-- MongoDB Atlas account
-- Google Gemini API key
-- OpenWeatherMap API key
+- Python 3.10 or higher
+- Node.js 18.0 or higher
+- npm / yarn
 
-### Frontend
+### 1. Clone Repository
 ```bash
-cd floodguard-frontend
-npm install
-cp .env.example .env
-# Add VITE_API_BASE_URL=http://localhost:8000
-npm run dev
+git clone https://github.com/vishal-s-sollapure/floodguard-ai.git
+cd floodguard-ai
 ```
 
-### Backend
+### 2. Backend Setup (`floodguard-backend`)
 ```bash
 cd floodguard-backend
+
+# Create virtual environment (optional)
+python -m venv venv
+venv\Scripts\activate  # Windows
+# source venv/bin/activate # Linux/Mac
+
+# Install dependencies
 pip install -r requirements.txt
-cp .env.example .env
-# Add MONGODB_URI, GEMINI_API_KEY, OPENWEATHER_API_KEY
-uvicorn main:app --reload --port 8000
+
+# Start FastAPI Uvicorn Server
+python -m uvicorn main:app --reload --port 8000
 ```
+Backend API will run at: `http://localhost:8000` (Swagger docs at `http://localhost:8000/docs`).
+
+### 3. Frontend Setup (`floodguard-frontend`)
+```bash
+cd ../floodguard-frontend
+
+# Install dependencies
+npm install
+
+# Start Vite Development Server
+npm run dev
+```
+Frontend web portal will run at: `http://localhost:5173`.
 
 ---
 
-## 🧠 AI Risk Engine
+## 🛡️ Responsible AI & Safety Guardrails
 
-The flood risk score is calculated using a weighted multi-variable model:
-
-| Variable | Weight | Normalization |
-|----------|--------|---------------|
-| Rainfall intensity | 30% | 0-100 mm/hr |
-| Water level | 25% | 0-3 meters |
-| Water rise rate | 20% | 0-0.5 m/15min |
-| Historical floods | 10% | 0-10 events |
-| Drainage risk | 10% | Low/Medium/High |
-| Population exposure | 5% | 0-50,000 |
-
-Risk levels:
-- 🟢 **LOW** (0-30): No immediate action
-- 🟡 **MODERATE** (31-60): Monitor and prepare  
-- 🟠 **HIGH** (61-80): Prepare evacuation
-- 🔴 **CRITICAL** (81-100): Evacuate immediately
+- **Deterministic Fallbacks**: Mathematical risk scoring is bounded strictly between 0 and 100 with clear algorithmic thresholds.
+- **Fail-Safe Helplines**: Every UI emergency modal prominently displays State Helpline Numbers (`1077` and `112`) for direct human emergency connection.
+- **Officer Oversight**: Unit dispatching and high-impact emergency broadcasts require explicit Disaster Response Officer confirmation.
 
 ---
 
-## 🤖 AI Declaration
+## 📜 License
+Distributed under the **MIT License**. See `LICENSE` for more information.
 
-This project uses AI in the following ways:
-- **Google Gemini API** — Emergency assistant chatbot providing situation-specific safety guidance
-- **Scikit-learn** — Weighted ML scoring model for flood risk prediction
-- **OpenWeatherMap API** — Real-time weather data ingestion
-
-AI tools used during development:
-- Claude (Anthropic) — Architecture planning, code scaffolding, debugging
-
----
-
-## 👤 Team
-
-**Vishal S. Sollapure**  
-Frontend Development Intern @ Saiket Systems  
-Student @ Aditya College of Engineering and Technology, Bengaluru  
-GitHub: [@vishal-s-sollapure](https://github.com/vishal-s-sollapure)
-
----
-
-## 📄 License
-
-MIT License — feel free to use and build on this project.
-
----
-
-*Built for CodeMyFYP National Virtual Hackathon 2026 — Climate & Communities Track*  
-*Predict. Prepare. Protect. 🌊*
+*Built with ❤️ for urban safety & disaster resilience.*
