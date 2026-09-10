@@ -4,6 +4,57 @@ import { Navigation, MapPin, ShieldCheck, Compass, AlertOctagon, Footprints, Car
 import toast from 'react-hot-toast';
 import { useLanguage } from './LanguageSelector';
 
+const defaultFallbackShelters = [
+  {
+    id: "shelter-1",
+    name: "Koramangala Indoor Stadium Relief Hub",
+    location_name: "Koramangala 8th Block",
+    lat: 12.9360,
+    lng: 77.6200,
+    capacity: 500,
+    occupancy: 310,
+    status: "OPEN",
+    contact: "+91 98765 43210",
+    facilities: ["Medical Station", "Clean Water", "Hot Meals", "Power Backup"]
+  },
+  {
+    id: "shelter-2",
+    name: "Indiranagar Civic Community Relief Center",
+    location_name: "Indiranagar 100ft Road",
+    lat: 12.9719,
+    lng: 77.6412,
+    capacity: 450,
+    occupancy: 140,
+    status: "OPEN",
+    contact: "+91 98765 43211",
+    facilities: ["Clean Water", "Hot Meals", "Helicopter Drop Zone"]
+  },
+  {
+    id: "shelter-3",
+    name: "Silk Board Emergency High-Ground Center",
+    location_name: "Silk Board Junction East",
+    lat: 12.9175,
+    lng: 77.6238,
+    capacity: 350,
+    occupancy: 325,
+    status: "NEAR_CAPACITY",
+    contact: "+91 98765 43212",
+    facilities: ["First Aid Unit", "Clean Water", "Emergency Rations"]
+  },
+  {
+    id: "shelter-5",
+    name: "HSR Layout Sector 3 Disaster Relief Camp",
+    location_name: "HSR Sector 3 Park",
+    lat: 12.9100,
+    lng: 77.6450,
+    capacity: 600,
+    occupancy: 180,
+    status: "OPEN",
+    contact: "+91 98765 43214",
+    facilities: ["Medical Base", "Rescue Boats", "Food Packets"]
+  }
+];
+
 const EvacuationRouteWidget = ({ onRouteCalculated }) => {
   const { t } = useLanguage();
   const [lat, setLat] = useState(12.9352);
@@ -15,17 +66,16 @@ const EvacuationRouteWidget = ({ onRouteCalculated }) => {
   const fetchShelters = async () => {
     try {
       const res = await getShelters();
-      setShelters(res.data || res);
+      const data = res.data || res;
+      if (Array.isArray(data) && data.length > 0) {
+        setShelters(data);
+      }
     } catch (err) {
       console.error("Failed to load shelters:", err);
     }
   };
 
-  useEffect(() => {
-    fetchShelters();
-  }, []);
-
-  const handleCalculateRoute = async (customLat, customLng) => {
+  const handleCalculateRoute = async (customLat, customLng, silent = false) => {
     const targetLat = customLat || lat;
     const targetLng = customLng || lng;
     setLoading(true);
@@ -36,14 +86,21 @@ const EvacuationRouteWidget = ({ onRouteCalculated }) => {
       if (onRouteCalculated) {
         onRouteCalculated(data);
       }
-      toast.success(`Evacuation Route Calculated to ${data.target_shelter.name}`);
+      if (!silent) {
+        toast.success(`Evacuation Route Calculated to ${data.target_shelter.name}`);
+      }
     } catch (err) {
       console.error("Evacuation route error:", err);
-      toast.error("Failed to calculate safe evacuation route.");
+      if (!silent) toast.error("Failed to calculate safe evacuation route.");
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchShelters();
+    handleCalculateRoute(12.9352, 77.6245, true);
+  }, []);
 
   const handleGeoDetect = () => {
     if (!navigator.geolocation) {
@@ -56,11 +113,11 @@ const EvacuationRouteWidget = ({ onRouteCalculated }) => {
         const detectedLng = parseFloat(pos.coords.longitude.toFixed(4));
         setLat(detectedLat);
         setLng(detectedLng);
-        handleCalculateRoute(detectedLat, detectedLng);
+        handleCalculateRoute(detectedLat, detectedLng, false);
       },
       (err) => {
         toast.error("Could not detect GPS location. Running simulation for Koramangala.");
-        handleCalculateRoute(12.9352, 77.6245);
+        handleCalculateRoute(12.9352, 77.6245, false);
       }
     );
   };
@@ -173,7 +230,7 @@ const EvacuationRouteWidget = ({ onRouteCalculated }) => {
         </h4>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {(shelters.length > 0 ? shelters : routeData?.all_shelters || []).map((shelter) => (
+          {(shelters.length > 0 ? shelters : (routeData?.all_shelters?.length > 0 ? routeData.all_shelters : defaultFallbackShelters)).map((shelter) => (
             <div
               key={shelter.id}
               className="bg-[#0b1222] p-4 rounded-xl border border-slate-800 hover:border-emerald-500/40 transition space-y-2"
