@@ -1,37 +1,20 @@
-import axios from 'axios';
+import axios from 'axios'
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://floodguard-ai-23yq.onrender.com';
+const API_BASE = 'https://floodguard-ai-23yq.onrender.com'
 
 const api = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: API_BASE,
+  timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
-  },
-});
+  }
+})
 
-export const getCurrentFlood = async () => {
-  const response = await api.get('/api/flood/current');
-  return response.data;
-};
+export const getCurrentFlood = () => api.get('/api/flood/current')
+export const getWeather = () => api.get('/api/weather/current')
+export const predictFlood = (data) => api.post('/api/flood/predict', data)
+export const submitReport = (data) => api.post('/api/reports', data)
+export const getAlerts = () => api.get('/api/alerts')
+export const getAssistant = (data) => api.post('/api/alerts/assistant', data)
 
-export const getWeather = async () => {
-  const response = await api.get('/api/weather/current');
-  return response.data;
-};
-
-export const predictFlood = async (data) => {
-  const response = await api.post('/api/flood/predict', data);
-  return response.data;
-};
-
-export const submitReport = async (data) => {
-  const response = await api.post('/api/reports', data);
-  return response.data;
-};
-
-export const getAlerts = async () => {
-  const response = await api.get('/api/alerts');
-  return response.data;
-};
-
-export default api;
+export default api
