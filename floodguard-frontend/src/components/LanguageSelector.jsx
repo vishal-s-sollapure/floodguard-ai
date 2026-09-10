@@ -158,7 +158,23 @@ export const translations = {
     aiPrompt3: 'What to do if water enters electrical outlets?',
     aiPrompt4: 'Is driving safe in Koramangala or Silk Board?',
     askAiPlaceholder: 'Ask Gemini AI emergency assistant...',
-    liveAlerts: 'LIVE ALERTS'
+    liveAlerts: 'LIVE ALERTS',
+
+    // Evacuation Route Intelligence
+    evacTitle: 'Safe Evacuation Route Intelligence & Shelter Navigation',
+    evacSubtitle: 'Calculates safe route avoiding submerged underpasses, storm drains, and critical flood zones.',
+    findRouteBtn: 'Find Safest Route Now',
+    targetShelter: 'Target Relief Shelter',
+    distance: 'Distance',
+    walkTime: 'Est. Walk Time',
+    driveTime: 'Est. Drive Time',
+    safetyScore: 'Route Safety Index',
+    hazardAvoided: 'Hazard Avoided',
+    turnByTurn: 'Turn-by-Turn Safe Navigation Steps',
+    liveShelterStatus: 'Live Emergency Relief Shelters',
+    shelterFull: 'FULL',
+    shelterOpen: 'OPEN',
+    shelterNearCap: 'NEAR CAPACITY'
   },
   kn: {
     // Navigation & Auth
@@ -314,7 +330,23 @@ export const translations = {
     aiPrompt3: 'ವಿದ್ಯುತ್ ಸಾಕೆಟ್‌ಗಳಿಗೆ ನೀರು ಹೊಕ್ಕರೆ ಏನು ಮಾಡಬೇಕು?',
     aiPrompt4: 'ಕೋರಮಂಗಲ ಅಥವಾ ಸಿಲ್ಕ್ ಬೋರ್ಡ್‌ನಲ್ಲಿ ವಾಹನ ಚಾಲನೆ ಸುರಕ್ಷಿತವೇ?',
     askAiPlaceholder: 'ಜೆಮಿನಿ AI ಸಹಾಯಕನನ್ನು ಕೇಳಿ...',
-    liveAlerts: 'ಲೈವ್ ಎಚ್ಚರಿಕೆಗಳು'
+    liveAlerts: 'ಲೈವ್ ಎಚ್ಚರಿಕೆಗಳು',
+
+    // Evacuation Route Intelligence
+    evacTitle: 'ಸುರಕ್ಷಿತ ತೆರವು ಮಾರ್ಗ ಮತ್ತು ಆಶ್ರಯ ತಾಣ ಮಾರ್ಗದರ್ಶನ',
+    evacSubtitle: 'ಜಲಾವೃತ ಪ್ರದೇಶಗಳನ್ನು ಹೊರತುಪಡಿಸಿ ಸುರಕ್ಷಿತ ಮಾರ್ಗವನ್ನು ಲೆಕ್ಕಾಚಾರ ಮಾಡಿ.',
+    findRouteBtn: 'ಸುರಕ್ಷಿತ ಮಾರ್ಗವನ್ನು ಹುಡುಕಿ',
+    targetShelter: 'ನಿಯೋಜಿತ ಆಶ್ರಯ ತಾಣ',
+    distance: 'ದೂರ',
+    walkTime: 'ನಡಿಗೆ ಸಮಯ',
+    driveTime: 'ವಾಹನ ಸಮಯ',
+    safetyScore: 'ಸುರಕ್ಷತಾ ಸೂಚಿ',
+    hazardAvoided: 'ತಪ್ಪಿಸಿದ ಅಪಾಯ',
+    turnByTurn: 'ಹಂತ-ಹಂತದ ಮಾರ್ಗದರ್ಶನ',
+    liveShelterStatus: 'ಲೈವ್ ತುರ್ತು ಆಶ್ರಯ ತಾಣಗಳು',
+    shelterFull: 'ಭರ್ತಿಯಾಗಿದೆ',
+    shelterOpen: 'ತೆರೆದಿದೆ',
+    shelterNearCap: 'ಭರ್ತಿಯಾಗುತ್ತಿದೆ'
   },
   hi: {
     // Navigation & Auth
@@ -470,7 +502,23 @@ export const translations = {
     aiPrompt3: 'बिजली के सॉकेट में पानी घुसने पर क्या करें?',
     aiPrompt4: 'क्या कोरमंगला या सिल्क बोर्ड में गाड़ी चलाना सुरक्षित है?',
     askAiPlaceholder: 'जेमिनी AI सहायक से पूछें...',
-    liveAlerts: 'लाइव अलर्ट'
+    liveAlerts: 'लाइव अलर्ट',
+
+    // Evacuation Route Intelligence
+    evacTitle: 'सुरक्षित निकासी मार्ग और आश्रय नेविगेशन',
+    evacSubtitle: 'जलमग्न क्षेत्रों से बचते हुए सुरक्षित मार्ग की गणना करें।',
+    findRouteBtn: 'सबसे सुरक्षित मार्ग खोजें',
+    targetShelter: 'लक्षित आश्रय स्थल',
+    distance: 'दूरी',
+    walkTime: 'पैदल समय',
+    driveTime: 'ड्राइविंग समय',
+    safetyScore: 'सुरक्षा सूचकांक',
+    hazardAvoided: 'टैला गया खतरा',
+    turnByTurn: 'मोड़-दर-मोड़ नेविगेशन',
+    liveShelterStatus: 'लाइव आपातकालीन आश्रय स्थल',
+    shelterFull: 'पूर्ण',
+    shelterOpen: 'खुला',
+    shelterNearCap: 'लगभग पूर्ण'
   }
 };
 

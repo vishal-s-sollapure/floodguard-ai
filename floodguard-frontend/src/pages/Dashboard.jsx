@@ -6,6 +6,7 @@ import AlertTicker from '../components/AlertTicker';
 import GeminiAssistantWidget from '../components/GeminiAssistantWidget';
 import FloodSimulationControl from '../components/FloodSimulationControl';
 import ExplainableRiskWidget from '../components/ExplainableRiskWidget';
+import EvacuationRouteWidget from '../components/EvacuationRouteWidget';
 import { useLanguage } from '../components/LanguageSelector';
 import { getCurrentFlood, getWeather, getAlerts } from '../api/floodApi';
 import { CloudRain, Waves, RefreshCw, MapPin, Clock } from 'lucide-react';
@@ -15,6 +16,7 @@ const Dashboard = () => {
   const [floodData, setFloodData] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
   const [alerts, setAlerts] = useState([]);
+  const [activeRoute, setActiveRoute] = useState(null);
   const [loading, setLoading] = useState(true);
   const [lastUpdated, setLastUpdated] = useState(new Date().toLocaleTimeString());
 
@@ -33,7 +35,7 @@ const Dashboard = () => {
       setLastUpdated(new Date().toLocaleTimeString());
     } catch (err) {
       console.error('Error fetching dashboard data:', err);
-    } fontally {
+    } finally {
       setLoading(false);
     }
   };
@@ -178,6 +180,9 @@ const Dashboard = () => {
         </div>
       </div>
 
+      {/* Evacuation Route Intelligence Widget */}
+      <EvacuationRouteWidget onRouteCalculated={(route) => setActiveRoute(route)} />
+
       {/* Middle Row: Leaflet Map */}
       <div className="space-y-3">
         <div className="flex items-center justify-between px-1">
@@ -186,7 +191,7 @@ const Dashboard = () => {
           </h2>
           <span className="text-xs text-slate-400 font-medium">Click markers for localized risk telemetry</span>
         </div>
-        <MapView />
+        <MapView activeRoute={activeRoute} />
       </div>
 
       {/* Gemini AI Emergency Assistant Widget */}

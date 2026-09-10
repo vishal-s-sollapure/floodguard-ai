@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, CircleMarker, Popup, Polyline, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import RiskBadge from './RiskBadge';
 
@@ -52,15 +52,23 @@ const neighborhoodData = [
 ];
 
 const sheltersData = [
-  { name: "Koramangala Indoor Stadium Shelter", lat: 12.9360, lng: 77.6210, capacity: "1,200 beds", status: "SAFE / OPEN" },
-  { name: "St. John's Relief Auditorium", lat: 12.9310, lng: 77.6180, capacity: "800 beds", status: "SAFE / OPEN" },
-  { name: "Whitefield Community Relief Center", lat: 12.9650, lng: 77.7420, capacity: "1,500 beds", status: "SAFE / OPEN" },
-  { name: "Hebbal Public High School Grounds", lat: 13.0350, lng: 77.5970, capacity: "600 beds", status: "SAFE / OPEN" }
+  { name: "Koramangala Indoor Stadium Shelter", lat: 12.9360, lng: 77.6200, capacity: "500 beds", status: "SAFE / OPEN" },
+  { name: "Indiranagar Civic Community Relief Center", lat: 12.9719, lng: 77.6412, capacity: "450 beds", status: "SAFE / OPEN" },
+  { name: "Silk Board Emergency Relief Center", lat: 12.9175, lng: 77.6238, capacity: "350 beds", status: "NEAR CAPACITY" },
+  { name: "HSR Layout Sector 3 Disaster Relief Camp", lat: 12.9100, lng: 77.6450, capacity: "600 beds", status: "SAFE / OPEN" }
 ];
 
-const MapView = () => {
+const MapView = ({ activeRoute }) => {
   const bengaluruCenter = [12.9716, 77.5946];
   const [showShelters, setShowShelters] = React.useState(true);
+
+  const routePolyline = activeRoute?.route_waypoints
+    ? activeRoute.route_waypoints.map(wp => [wp.lat, wp.lng])
+    : [
+        [12.9352, 77.6245],
+        [12.9355, 77.6230],
+        [12.9360, 77.6200]
+      ];
 
   return (
     <div className="w-full h-[450px] rounded-2xl overflow-hidden border border-slate-800/80 shadow-2xl relative">
@@ -85,6 +93,17 @@ const MapView = () => {
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+
+        {/* Evacuation Route Polyline */}
+        <Polyline
+          positions={routePolyline}
+          pathOptions={{
+            color: '#10b981',
+            weight: 5,
+            opacity: 0.95,
+            dashArray: '1, 2'
+          }}
         />
 
         {/* Neighborhood Risk Markers */}
@@ -160,10 +179,7 @@ const MapView = () => {
           <span className="w-3 h-3 rounded-full bg-orange-500"></span> High Risk Zone
         </div>
         <div className="flex items-center gap-2 text-slate-300">
-          <span className="w-3 h-3 rounded-full bg-amber-500"></span> Moderate Warning
-        </div>
-        <div className="flex items-center gap-2 text-slate-300">
-          <span className="w-3 h-3 rounded-full bg-emerald-500"></span> Safe / Low Risk
+          <span className="w-3 h-3 rounded-full bg-[#10b981]"></span> Safe Evacuation Route
         </div>
         <div className="flex items-center gap-2 text-emerald-400 font-semibold border-t border-slate-700/60 pt-1">
           <span className="w-3 h-3 rounded-full bg-emerald-400 border border-white"></span> Emergency Shelter

@@ -26,6 +26,8 @@ export const updateReportStatus = (id, data) => api.patch(`/api/reports/${id}/st
 export const analyzeReportImage = (data) => api.post('/api/reports/analyze-image', data)
 export const getAlerts = () => api.get('/api/alerts')
 export const getAssistant = (data) => api.post('/api/alerts/assistant', data)
+export const getShelters = () => api.get('/api/evacuation/shelters')
+export const getEvacuationRoute = (data) => api.post('/api/evacuation/route', data)
 export const loginUser = (data) => api.post('/api/auth/login', data)
 export const registerUser = (data) => api.post('/api/auth/register', data)
 
