@@ -1,29 +1,25 @@
-def calculate_flood_risk(rainfall_mm, water_level_m, water_rise_rate, 
+def calculate_flood_risk(rainfall_mm, water_level_m, water_rise_rate,
                           historical_floods, drainage_risk, population):
-
-    # Normalize each input to 0-100 scale
     
-    # Rainfall: 0 mm/hr = 0, 100+ mm/hr = 100
-    rainfall_score = min(rainfall_mm / 100 * 100, 100)
+    # Normalize inputs to 0-100
+    rainfall_score = min(float(rainfall_mm) / 100 * 100, 100)
+    water_level_score = min(float(water_level_m) / 3 * 100, 100)
+    rise_rate_score = min(float(water_rise_rate) / 0.5 * 100, 100)
+    historical_score = min(float(historical_floods) / 10 * 100, 100)
+    population_score = min(float(population) / 50000 * 100, 100)
     
-    # Water level: 0m = 0, 3m+ = 100
-    water_level_score = min(water_level_m / 3 * 100, 100)
+    # Drainage - handle ALL possible input formats
+    drainage_str = str(drainage_risk).lower().strip()
+    if "high" in drainage_str:
+        drainage_score = 100
+    elif "medium" in drainage_str or "moderate" in drainage_str:
+        drainage_score = 60
+    elif "low" in drainage_str:
+        drainage_score = 20
+    else:
+        drainage_score = 60
     
-    # Rise rate: 0 = 0, 0.5 m/15min+ = 100
-    rise_rate_score = min(water_rise_rate / 0.5 * 100, 100)
-    
-    # Historical floods: 0 = 0, 10+ = 100
-    historical_score = min(historical_floods / 10 * 100, 100)
-    
-    # Drainage risk: low=20, medium=60, high=100
-    drainage_map = {"low": 20, "medium": 60, "high": 100}
-    drainage_clean = str(drainage_risk).lower().strip().replace(" risk", "").replace(" ", "")
-    drainage_score = drainage_map.get(drainage_clean, 60)
-    
-    # Population: 0 = 0, 50000+ = 100
-    population_score = min(population / 50000 * 100, 100)
-    
-    # Weighted final score
+    # Weighted score
     risk_score = (
         rainfall_score * 0.30 +
         water_level_score * 0.25 +
@@ -33,9 +29,9 @@ def calculate_flood_risk(rainfall_mm, water_level_m, water_rise_rate,
         population_score * 0.05
     )
     
-    risk_score = round(min(risk_score, 100), 1)
+    risk_score = round(min(float(risk_score), 100), 1)
     
-    # Risk level thresholds
+    # Thresholds
     if risk_score <= 30:
         risk_level = "LOW"
         eta_minutes = 999
@@ -52,6 +48,12 @@ def calculate_flood_risk(rainfall_mm, water_level_m, water_rise_rate,
         risk_level = "CRITICAL"
         eta_minutes = 45
         action = "EVACUATE: Move immediately to higher ground. Avoid all flooded roads. Call emergency services if trapped."
+    
+    # Debug print to confirm values
+    print(f"RISK ENGINE: rainfall={rainfall_score}, water={water_level_score}, "
+          f"rise={rise_rate_score}, hist={historical_score}, "
+          f"drainage='{drainage_str}'→{drainage_score}, pop={population_score}")
+    print(f"RISK ENGINE: FINAL SCORE={risk_score}, LEVEL={risk_level}")
     
     return {
         "risk_score": risk_score,
