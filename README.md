@@ -62,6 +62,22 @@ It combines mathematical risk scoring, Gemini AI vision hazard analysis, safe ro
 ### 9. 🛡️ Officer Command Center Portal & PDF Export
 - Official command portal with incident review queues, 1-click rescue boat/chopper dispatch controls, status filters, and **1-Click Disaster Report PDF Export**.
 
+### 10. 🚑 Multi-Incident Rescue Resource Optimizer
+- Maintains live status for 5 emergency units: **NDRF Boat Crews**, **IAF Helicopter Unit**, **Medical ICU Ambulance**, **BBMP Dewatering Van**.
+- Algorithmic matching matrix computing **Priority Score × GPS Haversine Distance × Team Capability** to recommend optimal incident-to-team assignment.
+- Dispatches correct unit to the highest-priority SOS ticket without manual officer lookup.
+
+### 11. 🔄 Automatic Real-Time Event Chain Orchestrator
+- End-to-end automated decision pipeline: **Telemetry Spike → Anomaly Filter → Risk Recalculation → Threshold Breach → Alert Generation → SOS Escalation → Resource Optimizer → Officer Dispatch**.
+- Triggered via `POST /api/dispatch/orchestrate` for live demonstration.
+
+### 12. 📡 Sensor & Data Anomaly Detection Engine
+- Detects out-of-bound readings (e.g. water level jumping `2.4m → 9.8m`), stale data streams, impossible negative values, and rainfall API noise.
+- Automatically excludes anomalous outliers from XAI risk score calculation and surfaces prominent UI banners: `⚠️ Sensor Anomaly Detected — Outlier Excluded Pending Validation`.
+
+### 13. 📊 Emergency Response Performance KPI Analytics
+- Municipal operational metrics: **Avg Response Time (6m 42s)**, **Critical Incident Resolution Rate (85.7%)**, **Rescue Team Utilization (87.5%)**, **Shelter Occupancy (64.2%)**, **System Efficiency Score (94.8)**.
+
 ---
 
 ## ⚙️ 10 Production-Grade System Architecture Refinements
@@ -152,7 +168,15 @@ flowchart TD
 - `GET /api/history/analytics` — Serves 30-day daily precipitation vs water level time-series.
 - `GET /api/history/neighborhood-frequency` — Returns neighborhood flood frequency rankings.
 
-### 7. Auth & Incidents (`/api/auth`, `/api/reports`)
+### 8. Dispatch, Resource Optimizer & Orchestrator (`/api/dispatch`)
+- `GET /api/dispatch/rescue-teams` — Lists live status and GPS coordinates of all rescue units.
+- `GET /api/dispatch/recommendations` — Returns AI-optimized team-to-incident assignment recommendations.
+- `POST /api/dispatch/assign` — Dispatches a specific team to an incident and marks unit as `DISPATCHED`.
+- `GET /api/dispatch/kpi` — Returns operational KPI metrics (Response time, Resolution rate, Shelter occupancy).
+- `POST /api/dispatch/orchestrate` — Executes full automated event chain pipeline from raw telemetry.
+- `POST /api/dispatch/anomalies/evaluate` — Evaluates telemetry for sensor anomalies and returns sanitized data.
+
+### 9. Auth & Incidents (`/api/auth`, `/api/reports`)
 - `POST /api/auth/login` — JWT Authentication for Officers & Citizens.
 - `POST /api/reports` — Submits citizen incident report with location.
 - `POST /api/reports/analyze-image` — Runs Gemini AI Vision hazard analysis.

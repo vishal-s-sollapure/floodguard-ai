@@ -7,6 +7,8 @@ import { useLanguage } from '../components/LanguageSelector';
 import SOSCommandPanel from '../components/SOSCommandPanel';
 import DisasterImpactAnalytics from '../components/DisasterImpactAnalytics';
 import EmergencyBroadcastWidget from '../components/EmergencyBroadcastWidget';
+import RescueResourceOptimizer from '../components/RescueResourceOptimizer';
+import ResponseKPIWidget from '../components/ResponseKPIWidget';
 
 const AdminDashboard = () => {
   const { t } = useLanguage();
@@ -126,11 +128,17 @@ const AdminDashboard = () => {
       {/* SOS Rescue Urgent Priority Queue */}
       <SOSCommandPanel />
 
+      {/* Multi-Incident Rescue Resource Optimizer */}
+      <RescueResourceOptimizer />
+
       {/* Neighborhood Emergency Broadcast Dispatcher */}
       <EmergencyBroadcastWidget />
 
       {/* Disaster Impact & Economic Loss Analytics */}
       <DisasterImpactAnalytics />
+
+      {/* Emergency Response Performance KPIs & Event Chain Orchestrator */}
+      <ResponseKPIWidget />
 
       {/* Main Table Section */}
       <div className="bg-[#111827] p-6 rounded-2xl border border-slate-800 shadow-xl space-y-6">

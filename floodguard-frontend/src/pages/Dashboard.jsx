@@ -11,6 +11,7 @@ import DisasterImpactAnalytics from '../components/DisasterImpactAnalytics';
 import HistoricalAnalyticsWidget from '../components/HistoricalAnalyticsWidget';
 import DisasterScenarioSimulator from '../components/DisasterScenarioSimulator';
 import SystemHealthPanel from '../components/SystemHealthPanel';
+import SensorAnomalyBanner from '../components/SensorAnomalyBanner';
 import { useLanguage } from '../components/LanguageSelector';
 import { getCurrentFlood, getWeather, getAlerts } from '../api/floodApi';
 import { CloudRain, Waves, RefreshCw, MapPin, Clock } from 'lucide-react';
@@ -92,6 +93,11 @@ const Dashboard = () => {
             setLastUpdated(new Date().toLocaleTimeString());
           }
         }}
+      />
+
+      {/* Sensor & Data Anomaly Detection Banner */}
+      <SensorAnomalyBanner
+        telemetry={{ rainfall_mm: rainfall, water_level_m: waterLevel, water_rise_rate: waterRiseRate }}
       />
 
       {/* Live Simulation Mode for Demo */}
