@@ -1,0 +1,3 @@
+@echo off
+echo Starting FloodGuard AI Frontend (Vite)...
+npm run dev

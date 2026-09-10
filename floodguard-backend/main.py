@@ -1,0 +1,41 @@
+from contextlib import asynccontextmanager
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from database import connect_to_mongo, close_mongo_connection
+from routes import flood, reports, alerts, weather
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Connect to MongoDB Atlas on startup
+    await connect_to_mongo()
+    yield
+    # Close connection on shutdown
+    await close_mongo_connection()
+
+app = FastAPI(
+    title="FloodGuard AI Backend",
+    description="Early Warning & Risk Assessment System for Flooding",
+    version="1.0.0",
+    lifespan=lifespan
+)
+
+# Enable CORS for all origins
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Include API routers
+app.include_router(flood.router)
+app.include_router(reports.router)
+app.include_router(alerts.router)
+app.include_router(weather.router)
+
+# Health check endpoint
+@app.get("/")
+async def health_check():
+    return {"status": "FloodGuard AI backend running"}

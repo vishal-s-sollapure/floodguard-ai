@@ -1,0 +1,3 @@
+@echo off
+echo Starting FloodGuard AI Backend Server...
+python -m uvicorn main:app --reload --port 8000
