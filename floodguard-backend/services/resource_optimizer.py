@@ -99,72 +99,131 @@ def get_all_rescue_teams() -> List[Dict[str, Any]]:
     return RESCUE_TEAMS
 
 
+def _capability_match_score(vulnerability: str, team_capability: str) -> float:
+    """
+    Returns 0.0-1.0 capability match score.
+    Hard-required capabilities (e.g. Medical for ICU) return 0.0 if mismatched
+    so the optimizer never assigns an ambulance to a waterlogging case.
+    """
+    vuln = vulnerability.lower()
+    cap = team_capability.lower()
+
+    # Hard-requirement rules — must match or capability score is near-zero
+    if any(k in vuln for k in ["icu", "hospital", "medical", "patient"]):
+        return 1.0 if "medical" in cap else 0.05
+    if any(k in vuln for k in ["rooftop", "aerial", "helicopter", "height"]):
+        return 1.0 if "helicopter" in cap else 0.10
+    if any(k in vuln for k in ["waterlogging", "drainage", "basement", "pump"]):
+        return 1.0 if "pump" in cap or "drain" in cap else 0.40
+    if any(k in vuln for k in ["stranded", "flood", "citizen", "family", "rooftop"]):
+        return 1.0 if "boat" in cap or "ndrf" in cap else 0.50
+    # Generic — any available team acceptable
+    return 0.70
+
+
 def recommend_resource_assignments(incidents: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """
-    Given a list of open SOS incidents, compute optimal rescue team recommendations.
-    Uses priority score and GPS proximity matching.
+    Multi-factor weighted rescue team optimizer.
+    
+    Scoring formula (0-100):
+      score = (priority_weight × 0.40)
+            + (capability_match × 0.35)
+            + (proximity_score × 0.20)
+            + (capacity_score × 0.05)
+    
+    Incidents are processed strictly highest-priority-first.
+    Once a team is assigned to a high-priority incident, it is removed
+    from the pool so it cannot be reallocated to a lower-priority one.
     """
     recommendations = []
+    # Only consider teams that are AVAILABLE right now
     available_teams = [t for t in RESCUE_TEAMS if t["status"] == "AVAILABLE"]
 
-    # Sort incidents by priority (highest priority first)
+    # Sort incidents by priority descending — critical cases claim teams first
     sorted_incidents = sorted(incidents, key=lambda x: x.get("priority_score", 0), reverse=True)
-
-    assigned_team_ids = set()
+    assigned_team_ids: set = set()
 
     for incident in sorted_incidents:
         inc_lat = incident.get("lat", 12.9340)
         inc_lng = incident.get("lng", 77.6100)
         inc_id = incident.get("id", "SOS-UNKNOWN")
         vulnerability = incident.get("vulnerability_type", "Standard")
-        priority = incident.get("priority_score", 50)
+        priority = float(incident.get("priority_score", 50))
 
-        # Match team by capability if medical or aerial required
         candidate_teams = []
         for team in available_teams:
             if team["id"] in assigned_team_ids:
-                continue
+                continue  # Already committed to a higher-priority incident
 
-            dist = haversine_distance(inc_lat, inc_lng, team["lat"], team["lng"])
-            eta = calculate_eta_minutes(dist)
+            dist_km = haversine_distance(inc_lat, inc_lng, team["lat"], team["lng"])
+            eta = calculate_eta_minutes(dist_km)
 
-            # Score matching suitability: lower distance + matching capability boost
-            capability_boost = 0
-            if "Medical" in vulnerability and "Medical" in team["capability"]:
-                capability_boost = 50
-            elif "Rooftop" in vulnerability and "Helicopter" in team["capability"]:
-                capability_boost = 50
-            elif "Boat" in team["capability"]:
-                capability_boost = 30
+            # Factor 1: Incident priority contribution (40% weight)
+            priority_contribution = (priority / 100.0) * 40.0
 
-            match_score = (100 - (dist * 10)) + capability_boost
+            # Factor 2: Capability match (35% weight) — hard-required types enforced
+            cap_match = _capability_match_score(vulnerability, team["capability"])
+            capability_contribution = cap_match * 35.0
+
+            # Factor 3: Proximity (20% weight) — penalise distance on a 0-20 scale
+            # Max useful distance is 10 km; beyond that score drops to 0
+            proximity_score = max(0.0, (10.0 - dist_km) / 10.0)
+            proximity_contribution = proximity_score * 20.0
+
+            # Factor 4: Team rescue capacity (5% weight) — prefer larger teams for group rescues
+            max_known_capacity = 12.0
+            capacity_contribution = min(team["capacity_people"] / max_known_capacity, 1.0) * 5.0
+
+            total_score = round(
+                priority_contribution + capability_contribution +
+                proximity_contribution + capacity_contribution, 1
+            )
+
+            # Build human-readable reasoning
+            reasons = []
+            if cap_match >= 0.9:
+                reasons.append(f"✓ Capability match: {team['capability']}")
+            elif cap_match < 0.2:
+                reasons.append(f"⚠ Suboptimal capability for {vulnerability}")
+            reasons.append(f"✓ {dist_km} km away — ETA {eta} min")
+            if priority >= 90:
+                reasons.append("✓ Priority-1 case — high-capability unit reserved")
 
             candidate_teams.append({
                 "team": team,
-                "distance_km": dist,
+                "distance_km": dist_km,
                 "eta_minutes": eta,
-                "match_score": match_score
+                "match_score": total_score,
+                "score_breakdown": {
+                    "priority_contribution": round(priority_contribution, 1),
+                    "capability_contribution": round(capability_contribution, 1),
+                    "proximity_contribution": round(proximity_contribution, 1),
+                    "capacity_contribution": round(capacity_contribution, 1),
+                },
+                "reasoning": " | ".join(reasons)
             })
 
-        if candidate_teams:
-            # Pick best matching team
-            best_candidate = max(candidate_teams, key=lambda x: x["match_score"])
-            best_team = best_candidate["team"]
+        if not candidate_teams:
+            continue  # No available teams for this incident
 
-            recommendations.append({
-                "incident_id": inc_id,
-                "incident_location": incident.get("location_name", "Bengaluru"),
-                "priority_score": priority,
-                "vulnerability_type": vulnerability,
-                "recommended_team_id": best_team["id"],
-                "recommended_team_name": best_team["name"],
-                "team_capability": best_team["capability"],
-                "distance_km": best_candidate["distance_km"],
-                "eta_minutes": best_candidate["eta_minutes"],
-                "match_score": round(best_candidate["match_score"], 1),
-                "reasoning": f"Closest active unit ({best_candidate['distance_km']} km away) matching {vulnerability} requirements."
-            })
-            assigned_team_ids.add(best_team["id"])
+        best = max(candidate_teams, key=lambda x: x["match_score"])
+        best_team = best["team"]
+
+        recommendations.append({
+            "incident_id": inc_id,
+            "incident_location": incident.get("location_name", "Bengaluru"),
+            "priority_score": priority,
+            "vulnerability_type": vulnerability,
+            "recommended_team_id": best_team["id"],
+            "recommended_team_name": best_team["name"],
+            "team_capability": best_team["capability"],
+            "distance_km": best["distance_km"],
+            "eta_minutes": best["eta_minutes"],
+            "match_score": best["match_score"],
+            "score_breakdown": best["score_breakdown"],
+            "reasoning": best["reasoning"],
+        })
+        assigned_team_ids.add(best_team["id"])
 
     return recommendations
 

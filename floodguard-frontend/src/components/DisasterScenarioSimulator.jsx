@@ -101,13 +101,16 @@ const DisasterScenarioSimulator = ({ onStepUpdated }) => {
             <Activity className="w-7 h-7" />
           </div>
           <div>
-            <div className="flex items-center gap-2">
-              <h2 className="text-xl sm:text-2xl font-black text-white">🎮 Live Disaster Time-Lapse Simulator</h2>
+            <div className="flex items-center gap-2 flex-wrap">
+              <h2 className="text-xl sm:text-2xl font-black text-white">🎮 Disaster Scenario Time-Lapse Simulator</h2>
               <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/30 uppercase">
-                SCENARIO DEMO
+                🎮 Simulation Mode
               </span>
             </div>
-            <p className="text-xs text-slate-400 mt-0.5">Simulate a live monsoonal cloudburst disaster developing in real time (00m → 15m → 30m → 45m → 60m).</p>
+            <p className="text-xs text-slate-400 mt-0.5">Simulate a monsoonal cloudburst developing in real time (00m → 15m → 30m → 45m → 60m).</p>
+            <p className="text-[10px] text-amber-500/80 font-semibold mt-1 flex items-center gap-1">
+              ⚠️ Synthetic scenario data — not a real weather forecast. For demonstration purposes only.
+            </p>
           </div>
         </div>
 

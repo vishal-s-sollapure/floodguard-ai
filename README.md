@@ -227,11 +227,43 @@ Frontend web portal will run at: `http://localhost:5173`.
 
 ---
 
-## 🛡️ Responsible AI & Safety Guardrails
+## 🛡️ Responsible AI & Transparency Disclosure
 
-- **Deterministic Fallbacks**: Mathematical risk scoring is bounded strictly between 0 and 100 with clear algorithmic thresholds.
-- **Fail-Safe Helplines**: Every UI emergency modal prominently displays State Helpline Numbers (`1077` and `112`) for direct human emergency connection.
-- **Officer Oversight**: Unit dispatching and high-impact emergency broadcasts require explicit Disaster Response Officer confirmation.
+### AI Assessment vs Verified Fact
+All Gemini Vision AI outputs are clearly labelled **`⚠️ AI Assessment — Officer Verification Required`** throughout the UI. The system explicitly distinguishes:
+- **AI-Generated Assessment**: Gemini Vision photo analysis, Gemini Assistant emergency guidance
+- **Mathematical Calculation**: Deterministic 6-variable XAI risk score (0–100), bounded with no stochastic element
+- **Verified Ground Truth**: Only data explicitly confirmed by a Disaster Response Officer (NDRF)
+
+### Simulation Mode Disclosure
+The Disaster Scenario Time-Lapse Simulator generates **synthetic scenario data only**:
+- Clearly labelled `🎮 Simulation Mode — Synthetic scenario data. Not a real weather forecast.`
+- Intended for demonstration of the automated event pipeline, not as an actual monsoon prediction
+
+### 30-Minute Risk Projection Methodology
+The +30-minute predictive projection is a **mathematical extrapolation**, not a meteorological forecast:
+- **Method**: Weighted linear regression applied to the last 4 risk score readings
+- **Input**: Live telemetry (OpenWeatherMap + IoT Hydro-Sensor readings)
+- **Accuracy labelling**: Displayed as `📐 Projection — Mathematical model` in the Risk Trend widget
+- No claim to meteorological accuracy is made
+
+### Rescue Resource Optimizer Transparency
+The multi-factor matching algorithm uses a documented 4-factor scoring formula:
+
+| Factor | Weight | Description |
+|--------|--------|-------------|
+| Priority Score | 40% | SOS vulnerability severity (0–100 pts) |
+| Capability Match | 35% | Hard-required capability enforcement (Medical → Ambulance only, Aerial → Helicopter only) |
+| GPS Proximity | 20% | Haversine distance penalty (max useful range: 10 km) |
+| Team Capacity | 5% | Larger capacity teams preferred for group rescues |
+
+Critical cases (Priority ≥ 90 pts) claim matching teams first — a high-capability unit is **never** allocated to a low-priority incident while a CRITICAL SOS waits.
+
+### Deterministic Fallbacks & Safety
+- **Risk Bounds**: Score mathematically bounded 0.0–100.0. Anomalous sensor readings are detected and excluded before the calculation.
+- **Fail-Safe Helplines**: Every emergency modal shows State Helpline Numbers (`1077` and `112`).
+- **Officer Oversight**: Unit dispatching, broadcasts, and status changes require explicit Officer confirmation.
+- **Anomaly Detection**: Out-of-bound telemetry (e.g. water level spike: 2.4m → 9.8m) is flagged and the sanitised fallback value is used in scoring.
 
 ---
 

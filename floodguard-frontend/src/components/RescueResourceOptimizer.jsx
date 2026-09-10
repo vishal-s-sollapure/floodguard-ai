@@ -167,7 +167,7 @@ const RescueResourceOptimizer = () => {
                       <Truck className="w-4 h-4 text-indigo-400 shrink-0" />
                       <div className="flex-1 min-w-0">
                         <p className="text-xs font-extrabold text-indigo-300 truncate">{rec.recommended_team_name}</p>
-                        <p className="text-[10px] text-slate-400">{rec.team_capability} • Match Score: {rec.match_score}</p>
+                        <p className="text-[10px] text-slate-400">{rec.team_capability}</p>
                       </div>
                       <button
                         onClick={() => handleAssign(rec.recommended_team_id, rec.incident_id, rec.recommended_team_name)}
@@ -181,6 +181,26 @@ const RescueResourceOptimizer = () => {
                         )}
                       </button>
                     </div>
+
+                    {/* Multi-Factor Score Breakdown */}
+                    {rec.score_breakdown && (
+                      <div className="grid grid-cols-4 gap-1.5 text-[10px]">
+                        {[
+                          { label: 'Priority', value: rec.score_breakdown.priority_contribution, color: 'text-red-400', max: 40 },
+                          { label: 'Capability', value: rec.score_breakdown.capability_contribution, color: 'text-indigo-400', max: 35 },
+                          { label: 'Proximity', value: rec.score_breakdown.proximity_contribution, color: 'text-emerald-400', max: 20 },
+                          { label: 'Capacity', value: rec.score_breakdown.capacity_contribution, color: 'text-amber-400', max: 5 },
+                        ].map((f) => (
+                          <div key={f.label} className="bg-[#0d1732]/80 p-1.5 rounded-lg border border-slate-800/60 text-center">
+                            <p className="text-slate-500 text-[9px]">{f.label}</p>
+                            <p className={`font-black ${f.color}`}>{f.value}<span className="text-slate-600">/{f.max}</span></p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    {!rec.score_breakdown && (
+                      <div className="text-[10px] text-slate-500 font-mono">Match Score: {rec.match_score} / 100</div>
+                    )}
 
                     <p className="text-[10px] text-slate-500 italic pl-1">{rec.reasoning}</p>
                   </div>

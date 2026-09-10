@@ -24,7 +24,10 @@ const RiskTrendWidget = ({ trendSeries, currentScore = 61.0, projectedScore = 74
             <TrendingUp className="w-5 h-5 text-blue-400" /> {t('trendTitle')}
           </h3>
           <p className="text-xs text-slate-400 mt-1">
-            Real-time score trajectory with predictive AI projection (+30 minutes).
+            Past 45-min telemetry trend + linear extrapolation projection (+30 min).
+          </p>
+          <p className="text-[10px] text-slate-500 mt-0.5 font-mono">
+            📐 Projection method: weighted linear regression on last 4 risk score readings. Not a meteorological forecast.
           </p>
         </div>
 
