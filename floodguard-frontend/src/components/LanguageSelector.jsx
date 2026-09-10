@@ -174,7 +174,21 @@ export const translations = {
     liveShelterStatus: 'Live Emergency Relief Shelters',
     shelterFull: 'FULL',
     shelterOpen: 'OPEN',
-    shelterNearCap: 'NEAR CAPACITY'
+    shelterNearCap: 'NEAR CAPACITY',
+
+    // SOS Rescue Escalation
+    sosBtn: '🚨 SOS RESCUE',
+    sosTitle: 'Vulnerable Population SOS Rescue Dispatcher',
+    sosSubtitle: 'Priority dispatch for senior citizens, hospitals, disabled, and stranded families.',
+    vulnerabilityLabel: 'Vulnerability Category',
+    requiredModeLabel: 'Required Rescue Equipment',
+    strandedCountLabel: 'Stranded Persons Count',
+    medicalUrgencyLabel: 'Urgent Medical Need (Oxygen / Insulin / First Aid)',
+    citizenNameLabel: 'Contact Name',
+    phoneLabel: 'Emergency Phone Number',
+    locationNotesLabel: 'Location & Landmarks (Flat / Building)',
+    dispatchSosBtn: 'DISPATCH PRIORITY SOS RESCUE NOW',
+    sosSuccessToast: 'SOS Emergency Ticket Dispatched with Priority!'
   },
   kn: {
     // Navigation & Auth
@@ -346,7 +360,21 @@ export const translations = {
     liveShelterStatus: 'ಲೈವ್ ತುರ್ತು ಆಶ್ರಯ ತಾಣಗಳು',
     shelterFull: 'ಭರ್ತಿಯಾಗಿದೆ',
     shelterOpen: 'ತೆರೆದಿದೆ',
-    shelterNearCap: 'ಭರ್ತಿಯಾಗುತ್ತಿದೆ'
+    shelterNearCap: 'ಭರ್ತಿಯಾಗುತ್ತಿದೆ',
+
+    // SOS Rescue Escalation
+    sosBtn: '🚨 SOS ರಕ್ಷಣೆ',
+    sosTitle: 'ಆದ್ಯತೆಯ SOS ತುರ್ತು ರಕ್ಷಣೆ',
+    sosSubtitle: 'ಹಿರಿಯ ನಾಗರಿಕರು, ಆಸ್ಪತ್ರೆಗಳು ಮತ್ತು ಸಿಲುಕಿಕೊಂಡ ಕುಟುಂಬಗಳಿಗೆ ತಕ್ಷಣದ ರಕ್ಷಣೆ.',
+    vulnerabilityLabel: 'ಸಂಕಷ್ಟದ ವರ್ಗ',
+    requiredModeLabel: 'ಅಗತ್ಯವಿರುವ ರಕ್ಷಣಾ ಉಪಕರಣ',
+    strandedCountLabel: 'ಸಿಲುಕಿರುವ ವ್ಯಕ್ತಿಗಳ ಸಂಖ್ಯೆ',
+    medicalUrgencyLabel: 'ತುರ್ತು ವೈದ್ಯಕೀಯ ಅಗತ್ಯ (ಆಮ್ಲಜನಕ / ಇನ್ಸುಲಿನ್ / ಗಾಯ)',
+    citizenNameLabel: 'ಸಂಪರ್ಕಿತ ವ್ಯಕ್ತಿಯ ಹೆಸರು',
+    phoneLabel: 'ತುರ್ತು ಫೋನ್ ಸಂಖ್ಯೆ',
+    locationNotesLabel: 'ವಿವರವಾದ ಸ್ಥಳ ಮತ್ತು ಕುರುಹುಗಳು',
+    dispatchSosBtn: 'ಆದ್ಯತೆಯ SOS ರಕ್ಷಣೆ ರವಾನಿಸಿ',
+    sosSuccessToast: 'SOS ತುರ್ತು ಟಿಕೆಟ್ ಯಶಸ್ವಿಯಾಗಿ ಕಳುಹಿಸಲಾಗಿದೆ!'
   },
   hi: {
     // Navigation & Auth
@@ -518,7 +546,21 @@ export const translations = {
     liveShelterStatus: 'लाइव आपातकालीन आश्रय स्थल',
     shelterFull: 'पूर्ण',
     shelterOpen: 'खुला',
-    shelterNearCap: 'लगभग पूर्ण'
+    shelterNearCap: 'लगभग पूर्ण',
+
+    // SOS Rescue Escalation
+    sosBtn: '🚨 SOS बचाव',
+    sosTitle: 'प्राथमिकता SOS आपातकालीन बचाव',
+    sosSubtitle: 'वरिष्ठ नागरिकों, अस्पतालों और फंसे हुए परिवारों के लिए त्वरित बचाव।',
+    vulnerabilityLabel: 'संकट श्रेणी',
+    requiredModeLabel: 'आवश्यक बचाव उपकरण',
+    strandedCountLabel: 'फंसे हुए लोगों की संख्या',
+    medicalUrgencyLabel: 'आपातकालीन चिकित्सा आवश्यकता (ऑक्सीजन / इंसुलिन)',
+    citizenNameLabel: 'संपर्क नाम',
+    phoneLabel: 'आपातकालीन फोन नंबर',
+    locationNotesLabel: 'विशिष्ट स्थान और लैंडमार्क',
+    dispatchSosBtn: 'प्राथमिकता SOS बचाव भेजें',
+    sosSuccessToast: 'SOS आपातकालीन टिकट सफलतापूर्वक भेजा गया!'
   }
 };
 

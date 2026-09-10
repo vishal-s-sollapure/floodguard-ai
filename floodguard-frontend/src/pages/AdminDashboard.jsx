@@ -3,6 +3,7 @@ import { getReports, updateReportStatus } from '../api/floodApi';
 import { ShieldCheck, AlertOctagon, CheckCircle2, Clock, FileText, Printer, Eye, Truck, Sparkles, Filter } from 'lucide-react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useLanguage } from '../components/LanguageSelector';
+import SOSCommandPanel from '../components/SOSCommandPanel';
 
 const AdminDashboard = () => {
   const { t } = useLanguage();
@@ -117,6 +118,9 @@ const AdminDashboard = () => {
           </div>
         </div>
       </div>
+
+      {/* SOS Rescue Urgent Priority Queue */}
+      <SOSCommandPanel />
 
       {/* Main Table Section */}
       <div className="bg-[#111827] p-6 rounded-2xl border border-slate-800 shadow-xl space-y-6">

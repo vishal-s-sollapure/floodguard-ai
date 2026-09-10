@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Droplets, Activity, ShieldAlert, FileText, Home, ShieldCheck, User, LogOut } from 'lucide-react';
+import { Droplets, Activity, ShieldAlert, FileText, Home, ShieldCheck, User, LogOut, LifeBuoy } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import LanguageSelector, { useLanguage } from './LanguageSelector';
+import SOSRescueWidget from './SOSRescueWidget';
 
 const Navbar = () => {
   const { user, isOfficer, logout } = useAuth();
   const { t } = useLanguage();
+  const [isSOSOpen, setIsSOSOpen] = useState(false);
 
   return (
     <nav className="bg-[#0b1329]/90 backdrop-blur-md border-b border-slate-800/80 sticky top-0 z-50 px-4 sm:px-8 py-3.5 flex items-center justify-between shadow-lg">
@@ -26,7 +28,7 @@ const Navbar = () => {
       </NavLink>
 
       {/* Navigation Links */}
-      <div className="flex items-center gap-1 bg-[#111c38]/70 p-1.5 rounded-xl border border-slate-800/60 overflow-x-auto max-w-full">
+      <div className="flex items-center gap-1 bg-[#111c38]/70 p-1.5 rounded-xl border border-slate-800/60 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden max-w-full">
         <NavLink
           to="/"
           end
@@ -96,6 +98,13 @@ const Navbar = () => {
 
       {/* User / Login Control & Language Selector */}
       <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+        <button
+          onClick={() => setIsSOSOpen(true)}
+          className="flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-black text-xs sm:text-sm animate-pulse shadow-lg shadow-red-600/40 cursor-pointer border border-red-400/30 whitespace-nowrap"
+        >
+          <LifeBuoy className="w-4 h-4" /> {t('sosBtn') || '🚨 SOS Rescue'}
+        </button>
+
         <LanguageSelector />
 
         {user ? (
@@ -120,6 +129,9 @@ const Navbar = () => {
           </NavLink>
         )}
       </div>
+
+      {/* SOS Rescue Modal */}
+      <SOSRescueWidget isOpen={isSOSOpen} onClose={() => setIsSOSOpen(false)} />
     </nav>
   );
 };
