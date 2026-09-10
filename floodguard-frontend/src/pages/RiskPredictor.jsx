@@ -32,11 +32,19 @@ const RiskPredictor = () => {
     setLoading(true);
     try {
       const payload = {
-        ...formData,
-        drainage_risk: formData.drainage_risk.toLowerCase().replace(" risk", "").trim()
+        rainfall_mm: parseFloat(formData.rainfall_mm) || 0,
+        water_level_m: parseFloat(formData.water_level_m) || 0,
+        water_rise_rate: parseFloat(formData.water_rise_rate) || 0,
+        historical_floods: parseInt(formData.historical_floods, 10) || 0,
+        drainage_risk: String(formData.drainage_risk).toLowerCase().replace(" risk", "").trim(),
+        population: parseInt(formData.population, 10) || 0,
+        location: formData.location || "Bengaluru"
       };
+
+      console.log("Sending to API:", payload);
+
       const result = await predictFlood(payload);
-      setPrediction(result);
+      setPrediction(result.data || result);
       toast.success('Risk assessment analysis completed!');
     } catch (err) {
       console.error('Prediction error:', err);
