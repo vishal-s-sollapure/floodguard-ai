@@ -3,6 +3,7 @@ import RiskGauge from '../components/RiskGauge';
 import RiskBadge from '../components/RiskBadge';
 import MapView from '../components/MapView';
 import AlertTicker from '../components/AlertTicker';
+import GeminiAssistantWidget from '../components/GeminiAssistantWidget';
 import { getCurrentFlood, getWeather, getAlerts } from '../api/floodApi';
 import { CloudRain, Waves, RefreshCw, MapPin, Clock } from 'lucide-react';
 
@@ -171,6 +172,11 @@ const Dashboard = () => {
           <span className="text-xs text-slate-400 font-medium">Click markers for localized risk telemetry</span>
         </div>
         <MapView />
+      </div>
+
+      {/* Gemini AI Emergency Assistant Widget */}
+      <div className="pt-2">
+        <GeminiAssistantWidget riskScore={riskScore} riskLevel={riskLevel} location={locationName} />
       </div>
 
       {/* Bottom Row: Alert Ticker */}
