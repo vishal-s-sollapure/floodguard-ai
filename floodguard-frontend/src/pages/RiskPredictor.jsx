@@ -35,13 +35,16 @@ const RiskPredictor = () => {
         rainfall_mm: parseFloat(formData.rainfall_mm) || 0,
         water_level_m: parseFloat(formData.water_level_m) || 0,
         water_rise_rate: parseFloat(formData.water_rise_rate) || 0,
-        historical_floods: parseInt(formData.historical_floods, 10) || 0,
-        drainage_risk: String(formData.drainage_risk).toLowerCase().replace(" risk", "").trim(),
-        population: parseInt(formData.population, 10) || 0,
+        historical_floods: parseInt(formData.historical_floods) || 0,
+        drainage_risk: formData.drainage_risk.toLowerCase()
+                         .replace(" risk", "")
+                         .replace("risk", "")
+                         .trim(),
+        population: parseInt(formData.population) || 0,
         location: formData.location || "Bengaluru"
       };
 
-      console.log("Sending to API:", payload);
+      console.log("PAYLOAD:", JSON.stringify(payload));
 
       const result = await predictFlood(payload);
       setPrediction(result.data || result);
