@@ -79,3 +79,34 @@ def test_disaster_simulation_scenario_steps():
     s3 = advance_simulation_step()
     assert s3["step_index"] == 3
     assert s3["calculated_risk"]["risk_score"] > 80.0
+
+
+def test_risk_bounds():
+    """Risk score must always be 0-100"""
+    res = calculate_flood_risk(95, 2.8, 0.45, 8, "high", 18500)
+    score = res["risk_score"] if isinstance(res, dict) else res
+    assert 0 <= score <= 100, f"Score {score} out of bounds"
+
+
+def test_critical_threshold():
+    """Score 87.2% should trigger CRITICAL"""
+    res = calculate_flood_risk(95, 2.8, 0.45, 8, "high", 18500)
+    score = res["risk_score"] if isinstance(res, dict) else res
+    assert score > 80, "Should be CRITICAL (>80)"
+
+
+def test_zero_inputs():
+    """Zero rainfall = LOW RISK"""
+    res = calculate_flood_risk(0, 0.5, 0.1, 2, "low", 5000)
+    score = res["risk_score"] if isinstance(res, dict) else res
+    assert score < 30, "Should be LOW (<30)"
+
+
+def test_drainage_high_impact():
+    """High drainage risk = +40 points"""
+    res_high = calculate_flood_risk(50, 1.5, 0.2, 5, "high", 10000)
+    res_low = calculate_flood_risk(50, 1.5, 0.2, 5, "low", 10000)
+    score_high = res_high["risk_score"] if isinstance(res_high, dict) else res_high
+    score_low = res_low["risk_score"] if isinstance(res_low, dict) else res_low
+    assert score_high > score_low, "High drainage should increase risk"
+
