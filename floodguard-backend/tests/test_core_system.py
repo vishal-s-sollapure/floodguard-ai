@@ -4,7 +4,7 @@ Run via: pytest
 """
 
 import pytest
-from services.risk_engine import calculate_risk_score
+from services.risk_engine import calculate_flood_risk
 from services.sos_service import calculate_sos_priority
 from services.impact_engine import calculate_impact_metrics
 from services.broadcast_service import generate_multilingual_templates
@@ -13,12 +13,18 @@ from services.simulation_engine import start_simulation_scenario, advance_simula
 
 def test_risk_score_bounds_and_calculations():
     # Test 1: Minimum boundary conditions
-    res_min = calculate_risk_score(0, 0, 0, 0, 0, 0)
+    res_min = calculate_flood_risk(
+        rainfall_mm=0, water_level_m=0, water_rise_rate=0,
+        historical_floods=0, drainage_risk="Low", population=0
+    )
     assert res_min["risk_score"] >= 0.0
     assert res_min["risk_level"] == "SAFE"
 
     # Test 2: Maximum boundary conditions
-    res_max = calculate_risk_score(200, 5, 3, 10, 100, 100)
+    res_max = calculate_flood_risk(
+        rainfall_mm=200, water_level_m=5, water_rise_rate=3,
+        historical_floods=10, drainage_risk="High", population=100000
+    )
     assert res_max["risk_score"] <= 100.0
     assert res_max["risk_level"] == "CRITICAL"
 

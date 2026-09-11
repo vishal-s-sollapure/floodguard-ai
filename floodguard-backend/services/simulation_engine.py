@@ -5,7 +5,7 @@ Simulates a live monsoonal cloudburst disaster unfolding step-by-step (00m -> 15
 
 import time
 from typing import Dict, List
-from services.risk_engine import calculate_risk_score
+from services.risk_engine import calculate_flood_risk
 
 SCENARIOS = {
     "MONSOON_CLOUDBURST": [
@@ -108,13 +108,13 @@ def get_current_simulation_step():
     scenario = SCENARIOS.get(current_sim_state["active_scenario"], SCENARIOS["MONSOON_CLOUDBURST"])
     step_data = scenario[current_sim_state["step_index"]]
 
-    risk_result = calculate_risk_score(
-        rainfall_mm_hr=step_data["rainfall_mm_hr"],
+    risk_result = calculate_flood_risk(
+        rainfall_mm=step_data["rainfall_mm_hr"],
         water_level_m=step_data["water_level_m"],
-        rise_rate_m_hr=step_data["rise_rate_m_hr"],
+        water_rise_rate=step_data["rise_rate_m_hr"],
         historical_floods=step_data["historical_floods"],
         drainage_risk=step_data["drainage_risk"],
-        pop_density=step_data["pop_density"]
+        population=step_data["pop_density"] * 500  # Convert density to population estimate
     )
 
     return {
