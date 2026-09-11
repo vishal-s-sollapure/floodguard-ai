@@ -23,11 +23,13 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "*",  # Open for hackathon demo — restrict to exact Vercel URL in production
+        "*",  # Open for hackathon demo
         "http://localhost:5173",
         "http://localhost:3000",
         "http://127.0.0.1:5173",
         "https://floodguard-ai-23yq.onrender.com",
+        "https://floodguard-ai-seven.vercel.app",
+        "https://floodguard-ai-seven.vercel.app/",
     ],
     allow_credentials=False,
     allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
