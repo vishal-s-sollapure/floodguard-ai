@@ -1,6 +1,9 @@
 {
   "buildCommand": "cd floodguard-frontend && npm install && npm run build",
   "outputDirectory": "floodguard-frontend/dist",
+  "env": {
+    "VITE_API_BASE_URL": "https://floodguard-ai-23yq.onrender.com"
+  },
   "rewrites": [
     {
       "source": "/(.*)",
