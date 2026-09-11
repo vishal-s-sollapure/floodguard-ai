@@ -117,7 +117,7 @@ const Dashboard = () => {
       {/* Top Row: 3 Stat Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Card 1: Risk Gauge */}
-        <div className="bg-[#111827] p-6 rounded-2xl border border-slate-800 shadow-xl flex flex-col items-center justify-between hover:border-slate-700 transition-colors">
+        <div className="bg-[#111827] p-6 rounded-2xl border border-slate-800 shadow-xl flex flex-col items-center justify-between hover:border-slate-700 transition-colors">></div>
           <div className="w-full flex items-center justify-between mb-2">
             <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider">{t('currentScore')}</h3>
             <RiskBadge risk_level={riskLevel} size="small" />
